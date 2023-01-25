@@ -1,0 +1,149 @@
+package com.quanlythuphi.views;
+
+import com.quanlythuphi.constants.Constants;
+import com.quanlythuphi.controllers.KhoanPhiController;
+import com.quanlythuphi.models.KhoanPhi;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+public class KhoanPhiView extends BaseView implements Initializable {
+
+    private KhoanPhi current;
+
+    public ChoiceBox<String> loaiKhoanPhi;
+    public TextField tenKhoanPhi;
+    public TextField tuTuoi;
+    public TextField denTuoi;
+    public ChoiceBox<String> cheDo;
+    public AnchorPane createKhoanPhiPage;
+    public AnchorPane listKhoanPhiPage;
+    public AnchorPane detailKhoanPhiPage;
+    public ChoiceBox<String> loaiKhoanPhiDetail;
+    public TextField tenKhoanPhiDetail;
+    public TextField tuTuoiDetail;
+    public TextField denTuoiDetail;
+    public ChoiceBox<String> cheDoDetail;
+    public ChoiceBox<String> loaiKhoanPhiSearch;
+    public TextField tenKhoanPhiSearch;
+    public TableView<KhoanPhi> danhSachKhoanPhi;
+    public TableColumn<KhoanPhi, Integer> sttCol;
+    public TableColumn<KhoanPhi, String> tenKhoanPhiCol;
+    public TableColumn<KhoanPhi, String> loaiKhoanPhiCol;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loaiKhoanPhi.getItems().addAll(Constants.PHI_BAT_BUOC, Constants.PHI_TU_NGUYEN);
+        loaiKhoanPhiSearch.getItems().addAll(Constants.ALL, Constants.PHI_BAT_BUOC, Constants.PHI_TU_NGUYEN);
+        loaiKhoanPhiSearch.setValue(Constants.ALL);
+        cheDo.getItems().addAll(Constants.HO_NGHEO, Constants.HO_CAN_NGHEO, Constants.HO_BINH_THUONG);
+        loaiKhoanPhiDetail.getItems().addAll(Constants.PHI_BAT_BUOC, Constants.PHI_TU_NGUYEN);
+        cheDoDetail.getItems().addAll(Constants.HO_NGHEO, Constants.HO_CAN_NGHEO, Constants.HO_BINH_THUONG);
+        listKhoanPhiPage.setVisible(true);
+        createKhoanPhiPage.setVisible(false);
+        detailKhoanPhiPage.setVisible(false);
+        sttCol.setCellValueFactory(
+            khoanPhiIntegerCellDataFeatures -> new SimpleObjectProperty<>(
+                khoanPhiIntegerCellDataFeatures.getTableView().getItems().indexOf(
+                    khoanPhiIntegerCellDataFeatures.getValue())));
+        tenKhoanPhiCol.setCellValueFactory(new PropertyValueFactory<>("tenKhoanPhi"));
+        loaiKhoanPhiCol.setCellValueFactory(
+            khoanPhiStringCellDataFeatures -> new SimpleObjectProperty<>(
+                khoanPhiStringCellDataFeatures.getValue().getTheLoai()
+                    ? Constants.PHI_BAT_BUOC : Constants.PHI_TU_NGUYEN));
+        danhSachKhoanPhi.setRowFactory( tv -> {
+            TableRow<KhoanPhi> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    openDetailKhoanPhiPage(event, row.getItem());
+                }
+            });
+            return row ;
+        });
+    }
+
+    public void createKhoanPhi(ActionEvent actionEvent) {
+        if (tenKhoanPhi.getText() == null || loaiKhoanPhi.getValue() == null) {
+            System.out.println("Trường thông tin bắt buộc không được bỏ trống");
+            return;
+        }
+        KhoanPhi khoanPhi = KhoanPhiController.newKhoanPhi(tenKhoanPhi.getText(), loaiKhoanPhi.getValue(),
+            tuTuoi.getText(), denTuoi.getText(), cheDo.getValue());
+        if (KhoanPhiController.createKhoanPhi(khoanPhi)) {
+            System.out.println("Thành công");
+            openDetailKhoanPhiPage(actionEvent, khoanPhi);
+        } else {
+            System.out.println("Hệ thống đang có lỗi");
+        }
+    }
+
+    public void openCreateKhoanPhiPage(ActionEvent actionEvent) {
+        danhSachKhoanPhi.getItems().clear();
+        listKhoanPhiPage.setVisible(false);
+        createKhoanPhiPage.setVisible(true);
+        detailKhoanPhiPage.setVisible(false);
+    }
+
+    public void openListKhoanPhiPage(ActionEvent actionEvent) throws SQLException {
+        listKhoanPhiPage.setVisible(true);
+        createKhoanPhiPage.setVisible(false);
+        detailKhoanPhiPage.setVisible(false);
+        searchKhoanPhi(actionEvent);
+    }
+
+    public void openDetailKhoanPhiPage(Event event, KhoanPhi khoanPhi) {
+        danhSachKhoanPhi.getItems().clear();
+        listKhoanPhiPage.setVisible(false);
+        createKhoanPhiPage.setVisible(false);
+        detailKhoanPhiPage.setVisible(true);
+        current = khoanPhi;
+        tenKhoanPhiDetail.setText(current.getTenKhoanPhi());
+        loaiKhoanPhiDetail.setValue(current.getTheLoai() ? Constants.PHI_BAT_BUOC : Constants.PHI_TU_NGUYEN);
+        tuTuoiDetail.setText(current.getTuTuoi() == null ? null : String.valueOf(current.getTuTuoi()));
+        denTuoiDetail.setText(current.getDenTuoi() == null ? null : String.valueOf(current.getDenTuoi()));
+        cheDoDetail.setValue(Constants.mapCheDo(current.getCheDo()));
+    }
+
+    public void updateKhoanPhi(ActionEvent actionEvent) {
+        if (tenKhoanPhiDetail.getText() == null || loaiKhoanPhiDetail.getValue() == null) {
+            System.out.println("Trường thông tin bắt buộc không được bỏ trống");
+            return;
+        }
+        current = KhoanPhiController.newKhoanPhi(current.getId(), tenKhoanPhiDetail.getText(),
+            loaiKhoanPhiDetail.getValue(), tuTuoiDetail.getText(), denTuoiDetail.getText(), cheDoDetail.getValue());
+        if (KhoanPhiController.updateKhoanPhi(current)) {
+            System.out.println("Thành công");
+        } else {
+            System.out.println("Hệ thống đang có lỗi");
+        }
+    }
+
+    public void deleteKhoanPhi(ActionEvent actionEvent) throws SQLException {
+        if (KhoanPhiController.deleteKhoanPhi(current)) {
+            System.out.println("Thành công");
+        } else {
+            System.out.println("Hệ thống đang có lỗi");
+        }
+        current = null;
+        openListKhoanPhiPage(actionEvent);
+    }
+
+    public void searchKhoanPhi(ActionEvent actionEvent) throws SQLException {
+        Boolean temp = null;
+        if (loaiKhoanPhiSearch.getValue() != null && !loaiKhoanPhiSearch.getValue().equals(Constants.ALL))
+            temp = loaiKhoanPhiSearch.getValue().equals(Constants.PHI_BAT_BUOC);
+        ObservableList<KhoanPhi> khoanPhiList = FXCollections.observableArrayList(
+            KhoanPhiController.getListKhoanPhiByFilter(tenKhoanPhiSearch.getText(), temp));
+        danhSachKhoanPhi.setItems(khoanPhiList);
+    }
+}

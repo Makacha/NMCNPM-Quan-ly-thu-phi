@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quanlythuphi.views.BaseView">
+   <VBox layoutY="40.0" prefHeight="660.0" prefWidth="200.0" style="-fx-background-color: #272323;">
+      <Pane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #272323; -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,8), 5, 0, 0, 0);">
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" text="Thống kê khoản phí" textFill="WHITE">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </Label>
+      </Pane>
+      <Pane onMouseClicked="#viewKhoanPhi" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #272323; -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,8), 5, 0, 0, 0);">
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" text="Quản lý khoản phí" textFill="WHITE">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </Label>
+      </Pane>
+      <Pane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #272323; -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,8), 5, 0, 0, 0);">
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" text="Quản lý thu phí" textFill="WHITE">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </Label>
+      </Pane>
+      <Pane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #272323; -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,8), 5, 0, 0, 0);">
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" text="Quản lý hộ khẩu" textFill="WHITE">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </Label>
+      </Pane>
+      <Pane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #272323; -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,8), 5, 0, 0, 0);">
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" text="Quản lý nhân khẩu" textFill="WHITE">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </Label>
+      </Pane>
+   </VBox>
+    <AnchorPane prefHeight="40.0" prefWidth="1300.0" style="-fx-background-color: #272323; -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,8), 5, 0, 0, 0);">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1195.0" layoutY="7.0" onMouseClicked="#logout" text="Đăng xuất" textAlignment="CENTER" textFill="WHITE">
+           <font>
+               <Font size="20.0" />
+           </font>
+        </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="4.0" onMouseClicked="#returnHomePage" prefHeight="30.0" prefWidth="200.0" text="HOME" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+    </AnchorPane>
+
+</AnchorPane>
