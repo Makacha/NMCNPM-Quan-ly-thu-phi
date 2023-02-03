@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -24,7 +25,6 @@ public class BaseView {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-
     }
 
     public void logout(MouseEvent mouseEvent) throws IOException {
@@ -35,7 +35,11 @@ public class BaseView {
         this.changePage(mouseEvent, "khoan-phi-view.fxml");
     }
 
+    public void viewHoKhau(MouseEvent mouseEvent) throws IOException {
+        this.changePage(mouseEvent, "ho-khau-view.fxml");
+    }
     public void returnHomePage(MouseEvent mouseEvent) throws IOException {
         this.changePage(mouseEvent, "base-view.fxml");
     }
+
 }

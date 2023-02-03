@@ -13,7 +13,7 @@
 <AnchorPane prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quanlythuphi.views.KhoanPhiView">
     <fx:include source="base-view.fxml" />
     <AnchorPane layoutX="200.0" layoutY="40.0" prefHeight="650.0" prefWidth="1100.0">
-        <AnchorPane fx:id="createKhoanPhiPage" prefHeight="640.0" prefWidth="1100.0" visible="false">
+        <AnchorPane fx:id="createKhoanPhiPage" prefHeight="640.0" prefWidth="1100.0">
             <Label layoutX="16.0" layoutY="8.0" text="Khai báo khoản phí mới">
                 <font>
                     <Font size="24.0" />
@@ -49,7 +49,6 @@
                     <Font size="16.0" />
                 </font>
             </Label>
-            <ChoiceBox fx:id="cheDo" layoutX="147.0" layoutY="234.0" prefHeight="25.0" prefWidth="118.0" />
             <Button alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="562.0" mnemonicParsing="false" onAction="#createKhoanPhi" prefHeight="35.0" style="-fx-background-color: #23c233;" text="Tạo mới" textFill="WHITE">
                 <font>
                     <Font size="18.0" />
@@ -60,8 +59,9 @@
                     <Font size="18.0" />
                 </font>
             </Button>
+         <ChoiceBox fx:id="cheDo" layoutX="97.0" layoutY="234.0" prefWidth="150.0" />
         </AnchorPane>
-        <AnchorPane fx:id="listKhoanPhiPage" prefHeight="640.0" prefWidth="1100.0">
+        <AnchorPane fx:id="listKhoanPhiPage" prefHeight="640.0" prefWidth="1100.0" visible="false">
             <ChoiceBox fx:id="loaiKhoanPhiSearch" layoutX="343.0" layoutY="90.0" prefHeight="25.0" prefWidth="118.0" />
             <Label layoutX="14.0" layoutY="8.0" text="Danh sách khoản phí">
                 <font>
@@ -92,7 +92,7 @@
             </Label>
             <TableView fx:id="danhSachKhoanPhi" layoutY="130.0" prefHeight="530.0" prefWidth="1100.0">
                 <placeholder>
-                    <Label text="Không tìm thấy kết quả."/>
+                    <Label text="Không tìm thấy kết quả." />
                 </placeholder>
                 <columns>
                     <TableColumn fx:id="sttCol" editable="false" prefWidth="75.0" resizable="false" style="-fx-alignment: CENTER;" text="STT" />

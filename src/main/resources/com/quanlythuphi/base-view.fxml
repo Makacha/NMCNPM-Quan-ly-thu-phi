@@ -16,7 +16,7 @@
          </Label>
       </Pane>
       <Pane onMouseClicked="#viewKhoanPhi" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #272323; -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,8), 5, 0, 0, 0);">
-         <Label alignment="CENTER" contentDisplay="CENTER" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" text="Quản lý khoản phí" textFill="WHITE">
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutY="10.0" onMouseClicked="#viewKhoanPhi" prefHeight="30.0" prefWidth="200.0" text="Quản lý khoản phí" textFill="WHITE">
             <font>
                <Font size="20.0" />
             </font>
@@ -29,8 +29,8 @@
             </font>
          </Label>
       </Pane>
-      <Pane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #272323; -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,8), 5, 0, 0, 0);">
-         <Label alignment="CENTER" contentDisplay="CENTER" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" text="Quản lý hộ khẩu" textFill="WHITE">
+      <Pane onMouseClicked="#viewHoKhau" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #272323; -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,8), 5, 0, 0, 0);">
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutY="10.0" onMouseClicked="#viewHoKhau" prefHeight="30.0" prefWidth="200.0" text="Quản lý hộ khẩu" textFill="WHITE">
             <font>
                <Font size="20.0" />
             </font>
