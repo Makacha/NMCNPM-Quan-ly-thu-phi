@@ -1,5 +1,8 @@
 package com.quanlythuphi.constants;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 public class Constants {
     public static final String ALL = "Tất cả";
     public static final String PHI_BAT_BUOC = "Phí bắt buộc";
@@ -30,5 +33,11 @@ public class Constants {
         if (i == 1)
             return HO_CAN_NGHEO;
         return HO_BINH_THUONG;
+    }
+
+    public static String mapDateToString(Date date) {
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.format(date);
     }
 }

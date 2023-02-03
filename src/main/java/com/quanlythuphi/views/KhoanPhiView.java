@@ -4,6 +4,7 @@ import com.quanlythuphi.constants.Constants;
 import com.quanlythuphi.controllers.KhoanPhiController;
 import com.quanlythuphi.models.KhoanPhi;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -40,6 +42,7 @@ public class KhoanPhiView extends BaseView implements Initializable {
     public TableColumn<KhoanPhi, Integer> sttCol;
     public TableColumn<KhoanPhi, String> tenKhoanPhiCol;
     public TableColumn<KhoanPhi, String> loaiKhoanPhiCol;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -70,6 +73,14 @@ public class KhoanPhiView extends BaseView implements Initializable {
             });
             return row ;
         });
+        ObservableList<KhoanPhi> khoanPhiList = null;
+        try {
+            khoanPhiList = FXCollections.observableArrayList(
+                    KhoanPhiController.getListKhoanPhiByFilter(null, null));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        danhSachKhoanPhi.setItems(khoanPhiList);
     }
 
     public void createKhoanPhi(ActionEvent actionEvent) {
@@ -92,6 +103,11 @@ public class KhoanPhiView extends BaseView implements Initializable {
         listKhoanPhiPage.setVisible(false);
         createKhoanPhiPage.setVisible(true);
         detailKhoanPhiPage.setVisible(false);
+        tenKhoanPhi.setText(null);
+        loaiKhoanPhi.setValue(null);
+        tuTuoi.setText(null);
+        denTuoi.setText(null);
+        cheDo.setValue(null);
     }
 
     public void openListKhoanPhiPage(ActionEvent actionEvent) throws SQLException {

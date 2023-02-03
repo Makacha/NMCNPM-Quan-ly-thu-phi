@@ -94,16 +94,8 @@ public class KhoanPhiController {
 
     public static KhoanPhi newKhoanPhi(int id, String tenKhoanPhi, String loaiKhoanPhi, String tuTuoi, String denTuoi,
                                        String cheDo) {
-        KhoanPhi khoanPhi = new KhoanPhi();
+        KhoanPhi khoanPhi = newKhoanPhi(tenKhoanPhi, loaiKhoanPhi, tuTuoi, denTuoi, cheDo);
         khoanPhi.setId(id);
-        khoanPhi.setTenKhoanPhi(tenKhoanPhi);
-        khoanPhi.setTheLoai(loaiKhoanPhi.equals(Constants.PHI_BAT_BUOC));
-        if (tuTuoi != null && Constants.validateNumber(tuTuoi))
-            khoanPhi.setTuTuoi(Integer.parseInt(tuTuoi));
-        if (denTuoi != null && Constants.validateNumber(denTuoi))
-            khoanPhi.setDenTuoi(Integer.parseInt(denTuoi));
-        if (cheDo != null)
-            khoanPhi.setCheDo(Constants.mapCheDo(cheDo));
         return khoanPhi;
     }
 }
