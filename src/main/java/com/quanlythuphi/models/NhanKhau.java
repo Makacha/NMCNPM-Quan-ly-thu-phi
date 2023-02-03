@@ -1,11 +1,12 @@
 package com.quanlythuphi.models;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class NhanKhau extends Base {
     private String hoTen;
-    private String ngaySinh;
+    private Date ngaySinh;
     private String danToc;
     private String soDinhDanh;
     private String tonGiao;
@@ -23,7 +24,7 @@ public class NhanKhau extends Base {
     public NhanKhau() {
     }
 
-    public NhanKhau(String hoTen, String ngaySinh, String soDinhDanh) {
+    public NhanKhau(String hoTen, Date ngaySinh, String soDinhDanh) {
         this.hoTen = hoTen;
         this.ngaySinh = ngaySinh;
         this.soDinhDanh = soDinhDanh;
@@ -32,7 +33,7 @@ public class NhanKhau extends Base {
     public NhanKhau(ResultSet rs) throws SQLException {
         this.id = rs.getInt("id");
         this.hoTen = rs.getString("ho_ten");
-        this.ngaySinh = rs.getString("ngay_sinh");
+        this.ngaySinh = rs.getDate("ngay_sinh");
         this.danToc = rs.getString("dan_toc");
         this.soDinhDanh = rs.getString("so_dinh_danh");
         this.tonGiao = rs.getString("ton_giao");
@@ -48,7 +49,7 @@ public class NhanKhau extends Base {
         this.hoKhauId = rs.getObject("ho_khau_id") == null ? null : rs.getInt("ho_khau_id");
     }
 
-    public NhanKhau(String hoTen, String ngaySinh, String danToc, String soDinhDanh, String tonGiao, String queQuan,
+    public NhanKhau(String hoTen, Date ngaySinh, String danToc, String soDinhDanh, String tonGiao, String queQuan,
                     String gioiTinh, String diaChiThuongTru, String loaiCuTru, String soDienThoai, String noiSinh,
                     String tinhTrang, String quocTich, String ngheNghiep, int hoKhauID) {
         this.hoTen = hoTen;
@@ -76,11 +77,11 @@ public class NhanKhau extends Base {
         this.hoTen = hoTen;
     }
 
-    public String getNgaySinh() {
+    public Date getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(String ngaySinh) {
+    public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
 

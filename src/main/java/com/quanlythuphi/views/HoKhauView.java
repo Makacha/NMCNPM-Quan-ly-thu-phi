@@ -13,12 +13,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class HoKhauView extends BaseView implements Initializable {
@@ -114,7 +112,7 @@ public class HoKhauView extends BaseView implements Initializable {
             });
             return row ;
         });
-        ObservableList<HoKhau> hoKhauList = null;
+        ObservableList<HoKhau> hoKhauList;
         try {
             hoKhauList = FXCollections.observableArrayList(
                     HoKhauController.getListHoKhauByFilter(null, null));
