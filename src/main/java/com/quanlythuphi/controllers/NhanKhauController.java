@@ -4,8 +4,8 @@ import com.quanlythuphi.connection.DBConnection;
 import com.quanlythuphi.constants.Constants;
 import com.quanlythuphi.models.HoKhau;
 import com.quanlythuphi.models.NhanKhau;
-import javafx.scene.Parent;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,45 +24,28 @@ public class NhanKhauController {
         return null;
     }
 
-    public static ArrayList<NhanKhau> getListNhanKhauByFilter(String ho_ten, Integer hoKhauId, String danToc, String gioiTinh, String loaiCuTru, String quocTich) throws SQLException {
-        ArrayList<NhanKhau> nhanKhauList = new ArrayList<NhanKhau>();
-        String query;
-        if (ho_ten != null)
-            query = "select * from nhan_khau";
-        else
-            query = String.format("select * from nhan_khau where where lower(ho_ten) like '%%%s%%'", ho_ten.toLowerCase());
-        ResultSet rs = DBConnection.executeQuery(query);
+    public static ArrayList<NhanKhau> getListNhanKhauByFilter(String hoTen, String soDinhDanh, String soDienThoai,
+                                                              String diaChi) throws SQLException {
+        ArrayList<NhanKhau> nhanKhauList = new ArrayList<>();
+        StringBuilder query = new StringBuilder("select * from nhan_khau ");
+        ArrayList<String> filters = new ArrayList<>();
+        if (hoTen != null && !hoTen.equals(""))
+            filters.add(String.format("lower(ho_ten) like '%%%s%%'", hoTen.toLowerCase()));
+        if (soDinhDanh != null && !soDinhDanh.equals(""))
+            filters.add(String.format("so_dinh_danh like '%%%s%%'", soDinhDanh));
+        if (soDienThoai != null && !soDienThoai.equals(""))
+            filters.add(String.format("so_dien_thoai like '%%%s%%'", soDienThoai));
+        if (diaChi != null && !diaChi.equals(""))
+            filters.add(String.format("dia_chi like '%%%s%%'", diaChi));
+        if (filters.size() > 0)
+            query.append("where id is not null");
+        for (String filter : filters) {
+            query.append(" and ").append(filter);
+        }
+        ResultSet rs = DBConnection.executeQuery(query.toString());
         if (rs != null) {
             while (rs.next()) {
-                for (NhanKhau c : nhanKhauList) {
-                    boolean validNhanKhau = true;
-                    if (hoKhauId != null)
-                        if (c.getHoKhauId() != hoKhauId) {
-                            validNhanKhau = false;
-                        }
-                    if (danToc != null) {
-                        if (c.getDanToc() != danToc) {
-                            validNhanKhau = false;
-                        }
-                    }
-                    if (gioiTinh != null) {
-                        if (c.getGioiTinh() != gioiTinh) {
-                            validNhanKhau = false;
-                        }
-                    }
-                    if (loaiCuTru != null) {
-                        if (c.getLoaiCuTru() != loaiCuTru) {
-                            validNhanKhau = false;
-                        }
-                    }
-                    if (quocTich != null) {
-                        if (c.getQuocTich() != quocTich) {
-                            validNhanKhau = false;
-                        }
-                    }
-                    if (validNhanKhau)
-                        nhanKhauList.add(c);
-                }
+                nhanKhauList.add(new NhanKhau(rs));
             }
         }
         return nhanKhauList;
@@ -70,49 +53,49 @@ public class NhanKhauController {
 
     public static boolean createNhanKhau(NhanKhau nhanKhau) {
         String query = String.format("insert into nhan_khau (ho_ten, ngay_sinh, dan_toc, so_dinh_danh, ton_giao, que_quan, " +
-                        "gioi_tinh, dia_chi_thuong_tru, loai_cu_tru, so_dien_thoai, noi_sinh, tinh_trang, quoc_tich, nghe_nghiep, ho_khau_id) " +
-                        "values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %d)",
-                nhanKhau.getHoTen(),
-                nhanKhau.getNgaySinh(),
-                nhanKhau.getDanToc(),
-                nhanKhau.getSoDinhDanh(),
-                nhanKhau.getTonGiao(),
-                nhanKhau.getQueQuan(),
-                nhanKhau.getGioiTinh(),
-                nhanKhau.getDiaChiThuongTru(),
-                nhanKhau.getLoaiCuTru(),
-                nhanKhau.getSoDienThoai(),
-                nhanKhau.getNoiSinh(),
-                nhanKhau.getTinhTrang(),
-                nhanKhau.getQuocTich(),
-                nhanKhau.getNgheNghiep(),
-                nhanKhau.getHoKhauId());
+                "gioi_tinh, dia_chi_thuong_tru, loai_cu_tru, so_dien_thoai, noi_sinh, tinh_trang, quoc_tich, nghe_nghiep, ho_khau_id) " +
+                "values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %d)",
+            nhanKhau.getHoTen(),
+            Constants.mapDateToString(nhanKhau.getNgaySinh()),
+            nhanKhau.getDanToc(),
+            nhanKhau.getSoDinhDanh(),
+            nhanKhau.getTonGiao(),
+            nhanKhau.getQueQuan(),
+            nhanKhau.getGioiTinh(),
+            nhanKhau.getDiaChiThuongTru(),
+            nhanKhau.getLoaiCuTru(),
+            nhanKhau.getSoDienThoai(),
+            nhanKhau.getNoiSinh(),
+            nhanKhau.getTinhTrang(),
+            nhanKhau.getQuocTich(),
+            nhanKhau.getNgheNghiep(),
+            nhanKhau.getHoKhauId());
         System.out.println(query);
         return DBConnection.excuteUpdate(query) == 1;
     }
 
     public static boolean updateNhanKhau(NhanKhau nhanKhau) {
         String query = String.format("update nhan_khau " +
-                        "set ho_ten = '%s', ngay_sinh = '%s', dan_toc = '%s', so_dinh_danh = '%s', ton_giao = '%s', que_quan = '%s'" +
-                        "gioi_tinh = '%s', dia_chi_thuong_tru = '%s', loai_cu_tru = '%s', so_dien_thaoi = '%s', noi_sinh = '%s'" +
-                        "tinh_trang = '%s', quoc_tich = '%s', nghe_nghiep = '%s', ho_khau_id = %d" +
-                        "where id = %d",
-                nhanKhau.getHoTen(),
-                nhanKhau.getNgaySinh(),
-                nhanKhau.getDanToc(),
-                nhanKhau.getSoDinhDanh(),
-                nhanKhau.getTonGiao(),
-                nhanKhau.getQueQuan(),
-                nhanKhau.getGioiTinh(),
-                nhanKhau.getDiaChiThuongTru(),
-                nhanKhau.getLoaiCuTru(),
-                nhanKhau.getSoDienThoai(),
-                nhanKhau.getNoiSinh(),
-                nhanKhau.getTinhTrang(),
-                nhanKhau.getQuocTich(),
-                nhanKhau.getNgheNghiep(),
-                nhanKhau.getHoKhauId(),
-                nhanKhau.getId());
+                "set ho_ten = '%s', ngay_sinh = '%s', dan_toc = '%s', so_dinh_danh = '%s', ton_giao = '%s', que_quan = '%s'" +
+                "gioi_tinh = '%s', dia_chi_thuong_tru = '%s', loai_cu_tru = '%s', so_dien_thaoi = '%s', noi_sinh = '%s'" +
+                "tinh_trang = '%s', quoc_tich = '%s', nghe_nghiep = '%s', ho_khau_id = %d" +
+                "where id = %d",
+            nhanKhau.getHoTen(),
+            nhanKhau.getNgaySinh(),
+            nhanKhau.getDanToc(),
+            nhanKhau.getSoDinhDanh(),
+            nhanKhau.getTonGiao(),
+            nhanKhau.getQueQuan(),
+            nhanKhau.getGioiTinh(),
+            nhanKhau.getDiaChiThuongTru(),
+            nhanKhau.getLoaiCuTru(),
+            nhanKhau.getSoDienThoai(),
+            nhanKhau.getNoiSinh(),
+            nhanKhau.getTinhTrang(),
+            nhanKhau.getQuocTich(),
+            nhanKhau.getNgheNghiep(),
+            nhanKhau.getHoKhauId(),
+            nhanKhau.getId());
         System.out.println(query);
         return DBConnection.excuteUpdate(query) == 1;
     }
@@ -123,37 +106,49 @@ public class NhanKhauController {
         return DBConnection.excuteUpdate(query) == 1;
     }
 
-    public static NhanKhau newNhanKhau(String ho_Ten, String ngay_sinh, String dan_Toc, String so_dinh_danh, String ton_giao,
-                                       String que_quan, String gioi_tinh, String dia_chi_thuong_tru, String loai_cu_tru,
-                                       String so_dien_thoai, String noi_sinh, String tinh_trang, String quoc_tich, String nghe_nghiep,
-                                       String maHoKhau) throws SQLException {
+    public static NhanKhau newNhanKhau(String hoTen, Date ngaySinh, String danToc, String soDinhDanh, String tonGiao,
+                                       String queQuan, String gioiTinh, String diaChiThuongTru, String loaiCuTru,
+                                       String soDienThoai, String noiSinh, String tinhTrang, String quocTich,
+                                       String ngheNghiep, String maHoKhau) {
         NhanKhau nhanKhau = new NhanKhau();
-        Integer hoKhauId = HoKhauController.getListHoKhauByFilter(maHoKhau, null).get(0).getId();
-        nhanKhau.setHoTen(ho_Ten);
-        nhanKhau.setNgaySinh(ngay_sinh);
-        nhanKhau.setDanToc(dan_Toc);
-        nhanKhau.setSoDinhDanh(so_dinh_danh);
-        nhanKhau.setTonGiao(ton_giao);
-        nhanKhau.setQueQuan(que_quan);
-        nhanKhau.setGioiTinh(gioi_tinh);
-        nhanKhau.setDiaChiThuongTru(dia_chi_thuong_tru);
-        nhanKhau.setLoaiCuTru(loai_cu_tru);
-        nhanKhau.setSoDienThoai(so_dien_thoai);
-        nhanKhau.setNoiSinh(noi_sinh);
-        nhanKhau.setTinhTrang(tinh_trang);
-        nhanKhau.setQuocTich(quoc_tich);
-        nhanKhau.setNgheNghiep(nghe_nghiep);
-        nhanKhau.setHoKhauId(hoKhauId);
+        HoKhau hoKhau = null;
+        nhanKhau.setHoTen(hoTen);
+        nhanKhau.setNgaySinh(ngaySinh);
+        nhanKhau.setDanToc(danToc);
+        nhanKhau.setSoDinhDanh(soDinhDanh);
+        nhanKhau.setTonGiao(tonGiao);
+        nhanKhau.setQueQuan(queQuan);
+        nhanKhau.setGioiTinh(gioiTinh);
+        nhanKhau.setDiaChiThuongTru(diaChiThuongTru);
+        nhanKhau.setLoaiCuTru(loaiCuTru);
+        nhanKhau.setSoDienThoai(soDienThoai);
+        nhanKhau.setNoiSinh(noiSinh);
+        nhanKhau.setTinhTrang(tinhTrang);
+        nhanKhau.setQuocTich(quocTich);
+        nhanKhau.setNgheNghiep(ngheNghiep);
+        if (maHoKhau != null)
+            hoKhau = HoKhauController.getHoKhauByMaHoKhau(maHoKhau);
+        if (hoKhau != null)
+            nhanKhau.setHoKhauId(hoKhau.getId());
         return nhanKhau;
     }
 
-    public static Integer getIdNhanKhauBySoDinhDanh(String soDinhDanh) throws SQLException {
-        String query = String.format("Select id from nhan_khau where nhan_khau.so_dinh_danh = '%s'", soDinhDanh);
+    public static NhanKhau newNhanKhau(int id, String hoTen, Date ngaySinh, String danToc, String soDinhDanh, String tonGiao,
+                                       String queQuan, String gioiTinh, String diaChiThuongTru, String loaiCuTru,
+                                       String soDienThoai, String noiSinh, String tinhTrang, String quocTich,
+                                       String ngheNghiep, String maHoKhau) {
+        NhanKhau nhanKhau = newNhanKhau(hoTen, ngaySinh, danToc, soDinhDanh, tonGiao, queQuan, gioiTinh,
+            diaChiThuongTru, loaiCuTru, soDienThoai, noiSinh, tinhTrang, quocTich, ngheNghiep, maHoKhau);
+        nhanKhau.setId(id);
+        return nhanKhau;
+    }
+
+    public static NhanKhau getNhanKhauBySoDinhDanh(String soDinhDanh) throws SQLException {
+        String query = String.format("select id from nhan_khau where so_dinh_danh = '%s'", soDinhDanh);
         ResultSet rs = DBConnection.executeQuery(query);
         if (rs == null) {
             return null;
-        }
-        else
-            return rs.getInt("id");
+        } else
+            return new NhanKhau(rs);
     }
 }

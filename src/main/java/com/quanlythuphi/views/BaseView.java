@@ -42,4 +42,7 @@ public class BaseView {
         this.changePage(mouseEvent, "base-view.fxml");
     }
 
+    public void viewNhanKhau(MouseEvent mouseEvent) throws IOException {
+        this.changePage(mouseEvent, "nhan-khau-view.fxml");
+    }
 }

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quanlythuphi.views.NhanKhauView">
+    <fx:include source="base-view.fxml" />
+    <AnchorPane layoutX="200.0" layoutY="40.0" prefHeight="650.0" prefWidth="1100.0">
+        <AnchorPane fx:id="createNhanKhauPage" prefHeight="640.0" prefWidth="1100.0">
+            <Label layoutX="16.0" layoutY="8.0" text="Khai báo nhân khẩu mới">
+                <font>
+                    <Font size="24.0" />
+                </font>
+            </Label>
+            <Separator layoutY="49.0" prefWidth="1100.0" />
+            <Label layoutX="20.0" layoutY="80.0" text="Họ và tên:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="tenNhanKhau" layoutX="195.0" layoutY="80.0" prefHeight="25.0" prefWidth="174.0" />
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="562.0" mnemonicParsing="false" onAction="#createNhanKhau" prefHeight="35.0" style="-fx-background-color: #23c233;" text="Tạo mới" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="562.0" mnemonicParsing="false" onAction="#openListNhanKhauPage" style="-fx-background-color: #366fd1;" text="Quay lại" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+            <DatePicker fx:id="ngaySinh" layoutX="195.0" layoutY="125.0" />
+            <Label layoutX="20.0" layoutY="125.0" text="Ngày sinh:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="170.0" text="Giới tính:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="260.0" text="Quê quán:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="305.0" text="Nơi sinh:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="350.0" text="Tình trạng hôn nhân:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="500.0" layoutY="80.0" text="Số định danh:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+
+            <Label layoutX="500.0" layoutY="125.0" text="Số điện thoại:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="500.0" layoutY="170.0" text="Tôn giáo:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="500.0" layoutY="260.0" text="Địa chỉ thường trú:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="500.0" layoutY="305.0" text="Loại cư trú:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="500.0" layoutY="350.0" text="Nghề nghiệp:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="500.0" layoutY="215.0" text="Quốc tịch:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="215.0" text="Dân tộc:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="danToc" layoutX="195.0" layoutY="215.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="queQuan" layoutX="195.0" layoutY="260.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="noiSinh" layoutX="195.0" layoutY="305.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="soDinhDanh" layoutX="709.0" layoutY="80.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="soDienThoai" layoutX="709.0" layoutY="125.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="tonGiao" layoutX="709.0" layoutY="170.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="quocTich" layoutX="709.0" layoutY="215.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="diaChi" layoutX="709.0" layoutY="260.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="ngheNghiep" layoutX="709.0" layoutY="350.0" prefHeight="25.0" prefWidth="174.0" />
+            <ChoiceBox fx:id="gioiTinh" layoutX="195.0" layoutY="170.0" prefHeight="25.0" prefWidth="174.0" />
+            <ChoiceBox fx:id="tinhTrang" layoutX="195.0" layoutY="350.0" prefHeight="25.0" prefWidth="174.0" />
+            <ChoiceBox fx:id="loaiCuTru" layoutX="709.0" layoutY="305.0" prefHeight="25.0" prefWidth="174.0" />
+         <Label layoutX="20.0" layoutY="395.0" text="Mã hộ khẩu:">
+            <font>
+               <Font size="16.0" />
+            </font>
+         </Label>
+         <TextField fx:id="maHoKhau" layoutX="195.0" layoutY="395.0" prefHeight="25.0" prefWidth="174.0" />
+        </AnchorPane>
+        <AnchorPane fx:id="listNhanKhauPage" prefHeight="640.0" prefWidth="1100.0" visible="false">
+            <Label layoutX="14.0" layoutY="8.0" text="Danh sách nhân khẩu">
+                <font>
+                    <Font size="24.0" />
+                </font>
+            </Label>
+            <Separator layoutY="49.0" prefWidth="1100.0" />
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="863.0" layoutY="5.0" mnemonicParsing="false" onAction="#openCreateNhanKhauPage" style="-fx-background-color: #e8682c;" text="Khai báo nhân khẩu mới" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+            <Label layoutX="14.0" layoutY="59.0" text="Tên nhân khẩu">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="tenNhanKhauSearch" layoutX="14.0" layoutY="90.0" prefHeight="25.0" prefWidth="206.0" />
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="815.0" layoutY="71.0" mnemonicParsing="false" onAction="#searchNhanKhau" style="-fx-background-color: #ed1f1f;" text="Tìm kiếm" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+            <Label layoutX="242.0" layoutY="59.0" text="Số định danh">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <TableView fx:id="danhSachNhanKhau" layoutY="130.0" prefHeight="530.0" prefWidth="1100.0">
+                <placeholder>
+                    <Label text="Không tìm thấy kết quả." />
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="sttCol" editable="false" prefWidth="75.0" resizable="false" style="-fx-alignment: CENTER;" text="STT" />
+                    <TableColumn fx:id="tenNhanKhauCol" editable="false" prefWidth="197.0" text="Họ và tên" />
+                    <TableColumn fx:id="gioiTinhCol" editable="false" prefWidth="100.0" text="Giới tính" />
+                    <TableColumn fx:id="soDinhDanhCol" editable="false" minWidth="0.0" prefWidth="160.0" resizable="false" text="Số định danh" />
+                    <TableColumn fx:id="soDienThoaiCol" editable="false" minWidth="0.0" prefWidth="160.0" resizable="false" text="Số điện thoại" />
+                    <TableColumn fx:id="diaChiCol" editable="false" minWidth="0.0" prefWidth="407.0" resizable="false" text="Địa chỉ" />
+                </columns>
+            </TableView>
+            <TextField fx:id="soDinhDanhSearch" layoutX="242.0" layoutY="90.0" prefHeight="25.0" prefWidth="149.0" />
+            <Label layoutX="410.0" layoutY="59.0" text="Số điện thoại">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="soDienThoaiSearch" layoutX="410.0" layoutY="90.0" prefHeight="25.0" prefWidth="149.0" />
+            <Label layoutX="583.0" layoutY="59.0" text="Địa chỉ">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="diaChiSearch" layoutX="583.0" layoutY="90.0" prefHeight="25.0" prefWidth="206.0" />
+        </AnchorPane>
+        <AnchorPane fx:id="detailKhoanPhiPage" layoutX="10.0" layoutY="10.0" prefHeight="640.0" prefWidth="1100.0" visible="false">
+            <Label layoutX="16.0" layoutY="8.0" text="Thông tin chi tiết nhân khẩu">
+                <font>
+                    <Font size="24.0" />
+                </font>
+            </Label>
+            <Separator layoutY="49.0" prefWidth="1100.0" />
+            <Label layoutX="20.0" layoutY="80.0" text="Họ và tên:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="tenNhanKhauDetail" editable="false" layoutX="195.0" layoutY="80.0" prefHeight="25.0" prefWidth="174.0" />
+            <DatePicker fx:id="ngaySinhDetail" layoutX="195.0" layoutY="125.0" />
+            <Label layoutX="20.0" layoutY="125.0" text="Ngày sinh:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="170.0" text="Giới tính:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="260.0" text="Quê quán:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="305.0" text="Nơi sinh:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="350.0" text="Tình trạng hôn nhân:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="500.0" layoutY="80.0" text="Số định danh:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="500.0" layoutY="125.0" text="Số điện thoại:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="500.0" layoutY="170.0" text="Tôn giáo:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="500.0" layoutY="260.0" text="Địa chỉ thường trú:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="500.0" layoutY="305.0" text="Loại cư trú:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="500.0" layoutY="350.0" text="Nghề nghiệp:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="500.0" layoutY="215.0" text="Quốc tịch:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="215.0" text="Dân tộc:">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="danTocDetail" layoutX="195.0" layoutY="215.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="queQuanDetail" layoutX="195.0" layoutY="260.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="noiSinhDetail" layoutX="195.0" layoutY="305.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="soDinhDanhDetail" editable="false" layoutX="709.0" layoutY="80.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="soDienThoaiDetail" layoutX="709.0" layoutY="125.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="tonGiaoDetail" layoutX="709.0" layoutY="170.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="quocTichDetail" layoutX="709.0" layoutY="215.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="diaChiDetail" layoutX="709.0" layoutY="260.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField fx:id="ngheNghiepDetail" layoutX="709.0" layoutY="350.0" prefHeight="25.0" prefWidth="174.0" />
+            <ChoiceBox fx:id="gioiTinhDetail" layoutX="195.0" layoutY="170.0" prefHeight="25.0" prefWidth="174.0" />
+            <ChoiceBox fx:id="tinhTrangDetail" layoutX="195.0" layoutY="350.0" prefHeight="25.0" prefWidth="174.0" />
+            <ChoiceBox fx:id="loaiCuTruDetail" layoutX="709.0" layoutY="305.0" prefHeight="25.0" prefWidth="174.0" />
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="562.0" mnemonicParsing="false" onAction="#updateNhanKhau" prefHeight="35.0" prefWidth="70.0" style="-fx-background-color: #23c233;" text="Lưu" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="562.0" mnemonicParsing="false" onAction="#openListNhanKhauPage" prefHeight="35.0" style="-fx-background-color: #366fd1;" text="Quay lại" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="303.0" layoutY="562.0" mnemonicParsing="false" onAction="#deleteNhanKhau" prefHeight="35.0" prefWidth="70.0" style="-fx-background-color: #ed1f1f;" text="Xóa" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+         <Label layoutX="20.0" layoutY="394.0" text="Mã hộ khẩu:">
+            <font>
+               <Font size="16.0" />
+            </font>
+         </Label>
+         <TextField fx:id="maHoKhauDetail" layoutX="195.0" layoutY="394.0" prefHeight="25.0" prefWidth="174.0" />
+        </AnchorPane>
+    </AnchorPane>
+
+</AnchorPane>

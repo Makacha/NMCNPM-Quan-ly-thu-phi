@@ -24,19 +24,32 @@ public class HoKhauController {
         return null;
     }
 
+    public static HoKhau getHoKhauByMaHoKhau(String maHoKhau) {
+        ResultSet rs = DBConnection.executeQuery(String.format("select * from ho_khau where ma_ho_khau = '%s'", maHoKhau));
+        if (rs == null)
+            return null;
+        try {
+            rs.next();
+            return new HoKhau(rs);
+        } catch (Exception ignored) {
+
+        }
+        return null;
+    }
+
     public static ArrayList<HoKhau> getListHoKhauByFilter(String maHoKhau,
-                                                              Integer cheDo) throws SQLException {
-        ArrayList<HoKhau> hoKhauList = new ArrayList<HoKhau>();
+                                                          Integer cheDo) throws SQLException {
+        ArrayList<HoKhau> hoKhauList = new ArrayList<>();
         String query = "select * from ho_khau";
         if (maHoKhau != null && cheDo != null) {
             query = String.format("select * from ho_khau " +
-                    "where lower(ma_ho_khau) like '%%%s%%' and che_do = %d", maHoKhau.toLowerCase(), cheDo);
+                "where lower(ma_ho_khau) like '%%%s%%' and che_do = %d", maHoKhau.toLowerCase(), cheDo);
         } else if (maHoKhau != null) {
             query = String.format("select * from ho_khau " +
-                    "where lower(ma_ho_khau) like '%%%s%%'", maHoKhau.toLowerCase());
+                "where lower(ma_ho_khau) like '%%%s%%'", maHoKhau.toLowerCase());
         } else if (cheDo != null) {
             query = String.format("select * from ho_khau " +
-                    "where che_do = %d", cheDo);
+                "where che_do = %d", cheDo);
         }
         ResultSet rs = DBConnection.executeQuery(query);
         if (rs != null) {
@@ -49,26 +62,26 @@ public class HoKhauController {
 
     public static boolean createHoKhau(HoKhau hoKhau) {
         String query = String.format("insert into ho_khau (ma_ho_khau, dia_chi, ngay_lap, chu_ho_id, che_do) " +
-                        "values ('%s', '%s', '%s', %d, %d)",
-                hoKhau.getMaHoKhau(),
-                hoKhau.getDiaChi(),
-                Constants.mapDateToString(hoKhau.getNgayLap()),
-                hoKhau.getChuHoId(),
-                hoKhau.getCheDo());
+                "values ('%s', '%s', '%s', %d, %d)",
+            hoKhau.getMaHoKhau(),
+            hoKhau.getDiaChi(),
+            Constants.mapDateToString(hoKhau.getNgayLap()),
+            hoKhau.getChuHoId(),
+            hoKhau.getCheDo());
         System.out.println(query);
         return DBConnection.excuteUpdate(query) == 1;
     }
 
     public static boolean updateHoKhau(HoKhau hoKhau) {
         String query = String.format("update ho_khau " +
-                        "set ma_ho_khau = '%s', ngay_lap = '%s', dia_chi = '%s', chu_ho_id = %d, che_do = %d " +
-                        "where id = %d",
-                hoKhau.getMaHoKhau(),
-                Constants.mapDateToString(hoKhau.getNgayLap()),
-                hoKhau.getDiaChi(),
-                hoKhau.getChuHoId(),
-                hoKhau.getCheDo(),
-                hoKhau.getId());
+                "set ma_ho_khau = '%s', ngay_lap = '%s', dia_chi = '%s', chu_ho_id = %d, che_do = %d " +
+                "where id = %d",
+            hoKhau.getMaHoKhau(),
+            Constants.mapDateToString(hoKhau.getNgayLap()),
+            hoKhau.getDiaChi(),
+            hoKhau.getChuHoId(),
+            hoKhau.getCheDo(),
+            hoKhau.getId());
         System.out.println(query);
         return DBConnection.excuteUpdate(query) == 1;
     }
