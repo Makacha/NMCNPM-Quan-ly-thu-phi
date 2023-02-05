@@ -1,14 +1,11 @@
 package com.quanlythuphi.views;
 
 import com.quanlythuphi.constants.Constants;
+import com.quanlythuphi.constants.ChuyenTienRaChu;
 import com.quanlythuphi.controllers.BanGhiController;
 import com.quanlythuphi.controllers.HoKhauController;
 import com.quanlythuphi.controllers.KhoanPhiController;
-import com.quanlythuphi.controllers.NhanKhauController;
 import com.quanlythuphi.models.BanGhi;
-import com.quanlythuphi.models.KhoanPhi;
-import com.quanlythuphi.models.NhanKhau;
-import javafx.beans.Observable;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +14,6 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -91,7 +87,8 @@ public class BanGhiView implements Initializable  {
 
     @FXML
     private TableColumn<BanGhi, String> trangThaiCol;
-
+    @FXML
+    private TableColumn<BanGhi, String> soTienCol;
     @FXML
     private ChoiceBox<String> trangThaiDetail;
 
@@ -129,6 +126,10 @@ public class BanGhiView implements Initializable  {
         ));
         maHoKhauCol.setCellValueFactory(maHoKhauColString -> new SimpleObjectProperty<>(
                 HoKhauController.getHoKhau(maHoKhauColString.getValue().getHoKhauId()).getMaHoKhau()
+        ));
+        soTienCol.setCellValueFactory(banGhiStringCellDataFeatures -> new SimpleObjectProperty<>(
+                Constants.doiSoThanhTien(Long.valueOf(banGhiStringCellDataFeatures.getValue() != null
+                        ? banGhiStringCellDataFeatures.getValue().getSoTien() : null))
         ));
         listBanGhiPage.setVisible(true);
         detailBanGhiPage.setVisible(false);

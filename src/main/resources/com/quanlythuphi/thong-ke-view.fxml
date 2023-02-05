@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quanlythuphi.views.ThongKeView">
+    <fx:include source="base-view.fxml" />
+   <TabPane layoutX="199.0" layoutY="40.0" prefHeight="660.0" prefWidth="1107.0" tabClosingPolicy="UNAVAILABLE">
+     <tabs>
+       <Tab style="-fx-pref-width: 80; -fx-font-size: 15;" text="Tổng tiền">
+            <content>
+               <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <children>
+                     <Text layoutX="26.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nhập tên khoản phí:">
+                        <font>
+                           <Font name="System Bold Italic" size="18.0" />
+                        </font>
+                     </Text>
+                     <Button layoutX="641.0" layoutY="39.0" mnemonicParsing="false" onAction="#tinhTongKhoanPhi" style="-fx-background-color: #DC143C;" text="Tính tổng" textFill="#e8e8e8">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Button>
+                     <Label fx:id="tongTienBangSo" layoutX="265.0" layoutY="153.0" prefHeight="22.0" prefWidth="793.0" />
+                     <Text layoutX="62.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tổng tiền(bằng số):">
+                        <font>
+                           <Font name="System Bold Italic" size="18.0" />
+                        </font>
+                     </Text>
+                     <Text layoutX="62.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tổng tiền(bằng chữ):">
+                        <font>
+                           <Font name="System Bold Italic" size="18.0" />
+                        </font>
+                     </Text>
+                     <Label fx:id="tongTienBangChu" layoutX="275.0" layoutY="216.0" prefHeight="24.0" prefWidth="822.0" />
+                     <ComboBox fx:id="thongKeSumKhoanPhi" editable="true" layoutX="238.0" layoutY="42.0" prefHeight="25.0" prefWidth="341.0" />
+                  </children>
+               </AnchorPane>
+            </content>
+       </Tab>
+       <Tab style="-fx-pref-width: 200; -fx-font-size: 15;" text="Các hộ chưa nộp khoản phí">
+            <content>
+               <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <children>
+                     <Text layoutX="27.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nhập tên khoản phí:">
+                        <font>
+                           <Font name="System Bold Italic" size="18.0" />
+                        </font>
+                     </Text>
+                     <Button layoutX="633.0" layoutY="34.0" mnemonicParsing="false" onAction="#timKiemCacHoChuaNop" style="-fx-background-color: #DC143C;" text="Tìm kiếm" textFill="#e8e8e8">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Button>
+                     <ComboBox fx:id="thongKeListChuaNopKhoanPhi" layoutX="242.0" layoutY="36.0" prefHeight="25.0" prefWidth="325.0" />
+                     <TableView fx:id="listHoKhauChuaNop" layoutY="104.0" prefHeight="524.0" prefWidth="1107.0">
+                       <columns>
+                         <TableColumn fx:id="sttChuaNop" prefWidth="75.0" text="STT" />
+                         <TableColumn fx:id="maHoKhauChuaNop" prefWidth="100.0" text="Mã hộ khẩu" />
+                           <TableColumn fx:id="tenChuHoChuaNop" prefWidth="200.0" text="Tên chủ hộ" />
+                           <TableColumn fx:id="sdtChuaNop" prefWidth="100.0" text="SĐT chủ hộ" />
+                           <TableColumn fx:id="soTienChuaNop" prefWidth="150.0" text="Số tiền cần nộp" />
+                           <TableColumn fx:id="diaChiChuaNop" prefWidth="471.0" text="Địa chỉ" />
+                       </columns>
+                     </TableView>
+                  </children>
+               </AnchorPane>
+            </content>
+       </Tab>
+         <Tab style="-fx-font-size: 15;" text="Các hộ đã nộp khoản phí">
+            <content>
+               <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <children>
+                     <Text layoutX="36.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nhập tên khoản phí:">
+                        <font>
+                           <Font name="System Bold Italic" size="18.0" />
+                        </font>
+                     </Text>
+                     <Button layoutX="637.0" layoutY="34.0" mnemonicParsing="false" onAction="#timKiemCacHoDaNop" style="-fx-background-color: #DC143C;" text="Tìm kiếm" textFill="#e8e8e8">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Button>
+                     <ComboBox fx:id="thongKeListDaNopKhoanPhi" layoutX="247.0" layoutY="36.0" prefHeight="25.0" prefWidth="322.0" />
+                     <TableView fx:id="listHoKhauDaNop" layoutY="99.0" prefHeight="524.0" prefWidth="1107.0">
+                        <columns>
+                           <TableColumn fx:id="sttDaNop" prefWidth="75.0" text="STT" />
+                           <TableColumn fx:id="maHoKhauDaNop" prefWidth="100.0" text="Mã hộ khẩu" />
+                           <TableColumn fx:id="tenChuHoDaNop" prefWidth="200.0" text="Tên chủ hộ" />
+                           <TableColumn fx:id="sdtDaNop" prefWidth="100.0" text="SĐT chủ hộ" />
+                           <TableColumn fx:id="soTienDaNop" prefWidth="150.0" text="Số tiền đã nộp" />
+                           <TableColumn fx:id="diaChiDaNop" prefWidth="471.0" text="Địa chỉ" />
+                        </columns>
+                     </TableView>
+                  </children>
+               </AnchorPane>
+            </content>
+         </Tab>
+     </tabs>
+   </TabPane>
+</AnchorPane>

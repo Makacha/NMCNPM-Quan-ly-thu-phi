@@ -53,4 +53,9 @@ public class BaseView {
     public void viewBanGhi(MouseEvent mouseEvent) throws IOException {
         this.changePage(mouseEvent, "ban-ghi-view.fxml");
     }
+
+
+    public void viewThongKe(MouseEvent mouseEvent) throws IOException {
+        this.changePage(mouseEvent, "thong-ke-view.fxml");
+    }
 }

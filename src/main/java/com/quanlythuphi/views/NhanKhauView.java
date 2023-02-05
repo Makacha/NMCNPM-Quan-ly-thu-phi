@@ -1,6 +1,7 @@
 package com.quanlythuphi.views;
 
 import com.quanlythuphi.constants.Constants;
+import com.quanlythuphi.controllers.HoKhauController;
 import com.quanlythuphi.controllers.KhoanPhiController;
 import com.quanlythuphi.controllers.NhanKhauController;
 import com.quanlythuphi.models.KhoanPhi;
@@ -109,10 +110,11 @@ public class NhanKhauView extends BaseView implements Initializable {
         danhSachNhanKhau.setItems(nhanKhauList);
     }
 
-    public void openListNhanKhauPage(Event event) {
+    public void openListNhanKhauPage(Event event) throws SQLException {
         listNhanKhauPage.setVisible(true);
         createNhanKhauPage.setVisible(false);
         detailKhoanPhiPage.setVisible(false);
+        searchNhanKhau((ActionEvent) event);
     }
 
     public void openCreateNhanKhauPage(ActionEvent actionEvent) {
@@ -140,6 +142,8 @@ public class NhanKhauView extends BaseView implements Initializable {
         gioiTinhDetail.setValue(current.getGioiTinh());
         tinhTrangDetail.setValue(current.getTinhTrang());
         loaiCuTruDetail.setValue(current.getLoaiCuTru());
+        if (current.getHoKhauId() != null)
+            maHoKhauDetail.setText(HoKhauController.getHoKhau(current.getHoKhauId()).getMaHoKhau());
     }
 
     public void searchNhanKhau(ActionEvent actionEvent) throws SQLException {
@@ -182,12 +186,13 @@ public class NhanKhauView extends BaseView implements Initializable {
         }
     }
 
-    public void deleteNhanKhau(ActionEvent actionEvent) {
+    public void deleteNhanKhau(ActionEvent actionEvent) throws SQLException {
         if (NhanKhauController.deleteNhanKhau(current)) {
             System.out.println("Thành công");
         } else {
             System.out.println("Hệ thống đang có lỗi");
         }
+        current = null;
         openListNhanKhauPage(actionEvent);
     }
 }

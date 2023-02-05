@@ -99,9 +99,7 @@ public class HoKhauController {
         hoKhau.setNgayLap(ngayLap);
         hoKhau.setDiaChi(diaChi);
         hoKhau.setCheDo(Constants.mapCheDo(cheDo));
-
-        // _______________ Update________________________
-        //hoKhau.setChuHoId(Constants.mapCMNDtoNhanKhauId(chuHoId));
+        hoKhau.setChuHoId(chuHoId);
 
         return hoKhau;
     }

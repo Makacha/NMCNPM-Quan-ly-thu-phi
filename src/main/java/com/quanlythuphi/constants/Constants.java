@@ -1,7 +1,9 @@
 package com.quanlythuphi.constants;
 
 import java.sql.Date;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class Constants {
     public static final String ALL = "Tất cả";
@@ -43,6 +45,15 @@ public class Constants {
         if (s.equals(CHUA_NOP))
             return false;
         return null;
+    }
+
+    public static String doiSoThanhTien(Long i) {
+        if (i == null)
+            return null;
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
+
+        return format.format(i);
     }
 
     public static String mapLoaiPhi(Boolean i) {

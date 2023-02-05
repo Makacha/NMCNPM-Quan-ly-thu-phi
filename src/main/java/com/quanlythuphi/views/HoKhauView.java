@@ -2,6 +2,7 @@ package com.quanlythuphi.views;
 
 import com.quanlythuphi.constants.Constants;
 import com.quanlythuphi.controllers.HoKhauController;
+import com.quanlythuphi.controllers.KhoanPhiController;
 import com.quanlythuphi.controllers.NhanKhauController;
 import com.quanlythuphi.models.HoKhau;
 import com.quanlythuphi.models.NhanKhau;
@@ -141,16 +142,19 @@ public class HoKhauView extends BaseView implements Initializable {
 
     @FXML
     void createHoKhau(ActionEvent event) throws SQLException {
-        if (maHoKhau.getText() == null || cheDo.getValue() == null || Constants.mapDateToString(Date.valueOf(ngayLap.getValue())) == null || diaChi.getText() == null || chuHo.getText() == null) {
+        if (maHoKhau.getText() == null || cheDo.getValue() == null || Constants.mapDateToString(Date.valueOf(ngayLap.getValue())) == null || diaChi.getText() == null) {
             System.out.println("Trường thông tin bắt buộc không được bỏ trống");
             return;
         }
 
         NhanKhau nhanKhau = NhanKhauController.getNhanKhauBySoDinhDanh(chuHo.getText());
-
         HoKhau hoKhau = HoKhauController.newHoKhau(maHoKhau.getText(), Date.valueOf(ngayLap.getValue()),
                 diaChi.getText(), nhanKhau != null ? nhanKhau.getId() : null, cheDo.getValue());
         if (HoKhauController.createHoKhau(hoKhau)) {
+            if (nhanKhau != null) {
+                nhanKhau.setHoKhauId(HoKhauController.getHoKhauByMaHoKhau(maHoKhau.getText()).getId());
+                NhanKhauController.updateNhanKhau(nhanKhau);
+            }
             System.out.println("Thành công");
             openDetailHoKhauPage(event, hoKhau);
         } else {
@@ -223,10 +227,23 @@ public class HoKhauView extends BaseView implements Initializable {
         newHoKhau.setId(currentHoKhau.getId());
         if (HoKhauController.updateHoKhau(newHoKhau)) {
             System.out.println("Thành công");
+            if (nhanKhau != null) {
+                nhanKhau.setHoKhauId(HoKhauController.getHoKhauByMaHoKhau(maHoKhauDetail.getText()).getId());
+                NhanKhauController.updateNhanKhau(nhanKhau);
+            }
         } else {
             System.out.println("Hệ thống đang có lỗi");
         }
 
     }
 
+    public void deleteHoKhau(ActionEvent event) throws SQLException {
+        if (HoKhauController.deleteHoKhau(currentHoKhau)) {
+            System.out.println("Thành công");
+        } else {
+            System.out.println("Hệ thống đang có lỗi");
+        }
+        currentHoKhau = null;
+        openListHoKhauPage(event);
+    }
 }

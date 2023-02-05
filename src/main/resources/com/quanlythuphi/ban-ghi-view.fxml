@@ -15,7 +15,7 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quanlythuphi.views.BanGhiView">
     <fx:include source="base-view.fxml" />
-   <AnchorPane fx:id="listBanGhiPage" layoutX="200.0" layoutY="40.0" prefHeight="660.0" prefWidth="1101.0" visible="false">
+   <AnchorPane fx:id="listBanGhiPage" layoutX="200.0" layoutY="40.0" prefHeight="660.0" prefWidth="1101.0">
       <children>
          <Text layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Danh sách bản ghi">
             <font>
@@ -32,6 +32,7 @@
                <TableColumn fx:id="tenKhoanPhiCol" editable="false" prefWidth="300.0" text="Tên khoản phí" />
                <TableColumn fx:id="maHoKhauCol" editable="false" minWidth="0.0" prefWidth="150.0" resizable="false" text="Mã hộ khẩu" />
                <TableColumn fx:id="trangThaiCol" prefWidth="150.0" text="Trạng thái" />
+               <TableColumn fx:id="soTienCol" prefWidth="150.0" text="Số tiền" />
             </columns>
          </TableView>
          <Button alignment="CENTER" contentDisplay="CENTER" layoutX="886.0" layoutY="4.0" mnemonicParsing="false" onAction="#openCreateBanGhiPage" style="-fx-background-color: #e8682c;" text="Thêm bản ghi mới" textFill="WHITE">
@@ -135,7 +136,7 @@
          </Text>
       </children>
    </AnchorPane>
-   <AnchorPane fx:id="detailBanGhiPage" layoutX="200.0" layoutY="41.0" prefHeight="660.0" prefWidth="1101.0">
+   <AnchorPane fx:id="detailBanGhiPage" layoutX="200.0" layoutY="41.0" prefHeight="660.0" prefWidth="1101.0" visible="false">
       <children>
          <Text fx:id="failUpdate" fill="#ee0000" layoutX="258.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hệ thống đang có lỗi!" wrappingWidth="227.13671875">
             <font>

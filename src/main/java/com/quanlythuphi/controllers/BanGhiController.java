@@ -2,11 +2,8 @@ package com.quanlythuphi.controllers;
 
 import com.quanlythuphi.connection.DBConnection;
 import com.quanlythuphi.constants.Constants;
-import com.quanlythuphi.controllers.HoKhauController;
-import com.quanlythuphi.controllers.KhoanPhiController;
 import com.quanlythuphi.models.BanGhi;
 import com.quanlythuphi.models.HoKhau;
-import com.quanlythuphi.views.HoKhauView;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -91,4 +88,21 @@ public class BanGhiController {
         return banGhi;
     }
 
+    public static Long getSumByKhoanPhiId(int khoanPhiId) {
+        ArrayList<BanGhi> banGhiList = new ArrayList<BanGhi>();
+        String query = String.format("select sum(so_tien) from ban_ghi_nop_phi where khoan_phi_id = %d", khoanPhiId);
+
+        ResultSet rs = DBConnection.executeQuery(query);
+        if (rs != null) {
+            try {
+                rs.next();
+                return rs.getLong(1);
+
+            } catch (Exception ignored) {
+
+            }
+            return null;
+        }
+        return 0L;
+    }
 }
