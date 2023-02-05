@@ -2,7 +2,10 @@ package com.quanlythuphi.views;
 
 import com.quanlythuphi.constants.Constants;
 import com.quanlythuphi.controllers.HoKhauController;
+import com.quanlythuphi.controllers.NhanKhauController;
 import com.quanlythuphi.models.HoKhau;
+import com.quanlythuphi.models.NhanKhau;
+import javafx.beans.Observable;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -78,17 +81,18 @@ public class HoKhauView extends BaseView implements Initializable {
     @FXML
     private TextField chuHo;
 
+    public TableView<NhanKhau> thanhVienOfHoKhau;
+    public TableColumn<NhanKhau, String> hoTenThanhVienCol;
+    public TableColumn<NhanKhau, String> soDienThoaiThanhVienCol;
+    public TableColumn<NhanKhau, String> loaiCuTruThanhVIenCol;
+    public TableColumn<NhanKhau, String> soDinhDanhThanhVienCol;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //initialize choicesbox
         cheDoSearch.getItems().addAll(Constants.ALL, Constants.HO_NGHEO, Constants.HO_CAN_NGHEO, Constants.HO_BINH_THUONG);
         cheDo.getItems().addAll(Constants.HO_NGHEO, Constants.HO_CAN_NGHEO, Constants.HO_BINH_THUONG);
         cheDoDetail.getItems().addAll(Constants.HO_NGHEO, Constants.HO_CAN_NGHEO, Constants.HO_BINH_THUONG);
-        //____________________________________
-        //chuHo.getItems().addAll()
-        //____________________________________
-
-        // setVisible to anchorpane
         listHoKhauPage.setVisible(true);
         createHoKhauPage.setVisible(false);
         detailHoKhauPage.setVisible(false);
@@ -102,15 +106,27 @@ public class HoKhauView extends BaseView implements Initializable {
         cheDoCol.setCellValueFactory(
                 hoKhauStringCellDataFeatures -> new SimpleObjectProperty<>(
                         Constants.mapCheDo(hoKhauStringCellDataFeatures.getValue().getCheDo())));
-
-        danhSachHoKhau.setRowFactory( tv -> {
+        hoTenThanhVienCol.setCellValueFactory(new PropertyValueFactory<>("hoTen"));
+        soDinhDanhThanhVienCol.setCellValueFactory(new PropertyValueFactory<>("soDinhDanh"));
+        loaiCuTruThanhVIenCol.setCellValueFactory(
+                nhanKhauStringCellDataFeatures -> new SimpleObjectProperty<>(
+                        nhanKhauStringCellDataFeatures.getValue().getLoaiCuTru() != null ?
+                                nhanKhauStringCellDataFeatures.getValue().getLoaiCuTru() : ""
+                )
+        );
+        soDienThoaiThanhVienCol.setCellValueFactory(new PropertyValueFactory<>("soDienThoai"));
+        danhSachHoKhau.setRowFactory(tv -> {
             TableRow<HoKhau> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    openDetailHoKhauPage(event, row.getItem());
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    try {
+                        openDetailHoKhauPage(event, row.getItem());
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
-            return row ;
+            return row;
         });
         ObservableList<HoKhau> hoKhauList;
         try {
@@ -124,15 +140,16 @@ public class HoKhauView extends BaseView implements Initializable {
     }
 
     @FXML
-    void createHoKhau(ActionEvent event) {
+    void createHoKhau(ActionEvent event) throws SQLException {
         if (maHoKhau.getText() == null || cheDo.getValue() == null || Constants.mapDateToString(Date.valueOf(ngayLap.getValue())) == null || diaChi.getText() == null || chuHo.getText() == null) {
             System.out.println("Trường thông tin bắt buộc không được bỏ trống");
             return;
         }
 
-        // get Value to chuHo _____________Update________________
+        NhanKhau nhanKhau = NhanKhauController.getNhanKhauBySoDinhDanh(chuHo.getText());
 
-        HoKhau hoKhau = HoKhauController.newHoKhau(maHoKhau.getText(), Date.valueOf(ngayLap.getValue()), diaChi.getText(), "NULL", cheDo.getValue());
+        HoKhau hoKhau = HoKhauController.newHoKhau(maHoKhau.getText(), Date.valueOf(ngayLap.getValue()),
+                diaChi.getText(), nhanKhau != null ? nhanKhau.getId() : null, cheDo.getValue());
         if (HoKhauController.createHoKhau(hoKhau)) {
             System.out.println("Thành công");
             openDetailHoKhauPage(event, hoKhau);
@@ -141,7 +158,7 @@ public class HoKhauView extends BaseView implements Initializable {
         }
     }
 
-    void openDetailHoKhauPage(Event event, HoKhau hoKhau) {
+    void openDetailHoKhauPage(Event event, HoKhau hoKhau) throws SQLException {
         listHoKhauPage.setVisible(false);
         createHoKhauPage.setVisible(false);
         detailHoKhauPage.setVisible(true);
@@ -152,13 +169,16 @@ public class HoKhauView extends BaseView implements Initializable {
         cheDoDetail.setValue(Constants.mapCheDo(hoKhau.getCheDo()));
         if (hoKhau.getChuHoId() == null) {
             chuHoDetail.setText("Chưa có thông tin chủ hộ");
+        } else {
+            NhanKhau chuHo = NhanKhauController.getNhanKhau(hoKhau.getChuHoId());
+            chuHoDetail.setText((chuHo != null ? chuHo.getSoDinhDanh() : null));
         }
+        ObservableList<NhanKhau> nhanKhauList = FXCollections.observableArrayList(
+                NhanKhauController.getListNhanKhauByHoKhauId(currentHoKhau.getId()));
+        thanhVienOfHoKhau.setItems(nhanKhauList);
 
-        // __________________________________Update__________________________________
-        /*else {
-            chuHoDetail.setText();
-        }*/
     }
+
     @FXML
     void openCreateHoKhau(ActionEvent event) {
         listHoKhauPage.setVisible(false);
@@ -180,11 +200,6 @@ public class HoKhauView extends BaseView implements Initializable {
     }
 
     @FXML
-    void openListThanhVienInHoKhauPage(ActionEvent event) {
-
-    }
-
-    @FXML
     void searchHoKhau(ActionEvent event) throws SQLException {
         Integer temp = null;
         if (cheDoSearch.getValue() != null && !cheDoSearch.getValue().equals(Constants.ALL))
@@ -196,12 +211,15 @@ public class HoKhauView extends BaseView implements Initializable {
 
 
     @FXML
-    void updateHoKhau(ActionEvent event) {
+    void updateHoKhau(ActionEvent event) throws SQLException {
         if (maHoKhauDetail.getText() == null || cheDoDetail.getValue() == null || ngayLapDetail.getValue() == null || diaChiDetail.getText() == null) {
             System.out.println("Trường thông tin bắt buộc không được bỏ trống");
             return;
         }
-        HoKhau newHoKhau = HoKhauController.newHoKhau(maHoKhauDetail.getText(), Date.valueOf(ngayLapDetail.getValue()), diaChiDetail.getText(), "NULL", cheDoDetail.getValue());
+        NhanKhau nhanKhau = NhanKhauController.getNhanKhauBySoDinhDanh(chuHoDetail.getText());
+
+        HoKhau newHoKhau = HoKhauController.newHoKhau(maHoKhauDetail.getText(), Date.valueOf(ngayLapDetail.getValue()),
+                diaChiDetail.getText(), nhanKhau != null ? nhanKhau.getId() : null, cheDoDetail.getValue());
         newHoKhau.setId(currentHoKhau.getId());
         if (HoKhauController.updateHoKhau(newHoKhau)) {
             System.out.println("Thành công");

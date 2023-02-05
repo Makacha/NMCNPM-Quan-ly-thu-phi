@@ -24,6 +24,18 @@ public class NhanKhauController {
         return null;
     }
 
+    public static ArrayList<NhanKhau> getListNhanKhauByHoKhauId(Integer hoKhauId) throws SQLException {
+        ArrayList<NhanKhau> nhanKhauList = new ArrayList<>();
+        String query = String.format("select * from nhan_khau where ho_khau_id = %d", hoKhauId);
+        ResultSet rs = DBConnection.executeQuery(query);
+        if (rs != null) {
+            while (rs.next()) {
+                nhanKhauList.add(new NhanKhau(rs));
+            }
+        }
+        return nhanKhauList;
+    }
+
     public static ArrayList<NhanKhau> getListNhanKhauByFilter(String hoTen, String soDinhDanh, String soDienThoai,
                                                               String diaChi) throws SQLException {
         ArrayList<NhanKhau> nhanKhauList = new ArrayList<>();

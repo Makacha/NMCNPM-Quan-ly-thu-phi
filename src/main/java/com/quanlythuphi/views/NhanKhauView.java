@@ -85,7 +85,7 @@ public class NhanKhauView extends BaseView implements Initializable {
             nhanKhauIntegerCellDataFeatures.getTableView().getItems()
                 .indexOf(nhanKhauIntegerCellDataFeatures.getValue())
         ));
-        tenNhanKhauCol.setCellValueFactory(new PropertyValueFactory<>("tenNhanKhau"));
+        tenNhanKhauCol.setCellValueFactory(new PropertyValueFactory<>("hoTen"));
         gioiTinhCol.setCellValueFactory(new PropertyValueFactory<>("gioiTinh"));
         soDinhDanhCol.setCellValueFactory(new PropertyValueFactory<>("soDinhDanh"));
         soDienThoaiCol.setCellValueFactory(new PropertyValueFactory<>("soDienThoai"));
@@ -99,6 +99,14 @@ public class NhanKhauView extends BaseView implements Initializable {
             });
             return row;
         });
+        ObservableList<NhanKhau> nhanKhauList = null;
+        try {
+            nhanKhauList = FXCollections.observableArrayList(
+                    NhanKhauController.getListNhanKhauByFilter(null, null, null, null));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        danhSachNhanKhau.setItems(nhanKhauList);
     }
 
     public void openListNhanKhauPage(Event event) {

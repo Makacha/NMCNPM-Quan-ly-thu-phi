@@ -20,11 +20,15 @@ import java.util.ResourceBundle;
 public class BaseView {
 
     public void changePage(Event event, String path) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(path));
-        Scene scene = new Scene(fxmlLoader.load(), 1300, 700);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(path));
+            Scene scene = new Scene(fxmlLoader.load(), 1300, 700);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch (Exception ignore) {
+
+        }
     }
 
     public void logout(MouseEvent mouseEvent) throws IOException {
@@ -44,5 +48,9 @@ public class BaseView {
 
     public void viewNhanKhau(MouseEvent mouseEvent) throws IOException {
         this.changePage(mouseEvent, "nhan-khau-view.fxml");
+    }
+
+    public void viewBanGhi(MouseEvent mouseEvent) throws IOException {
+        this.changePage(mouseEvent, "ban-ghi-view.fxml");
     }
 }

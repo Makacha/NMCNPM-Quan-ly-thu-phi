@@ -7,6 +7,8 @@ public class Constants {
     public static final String ALL = "Tất cả";
     public static final String PHI_BAT_BUOC = "Phí bắt buộc";
     public static final String PHI_TU_NGUYEN = "Phí tự nguyện";
+    public static final String DA_NOP = "Đã nộp";
+    public static final String CHUA_NOP = "Chưa nộp";
     public static final String HO_NGHEO = "Hộ nghèo";
     public static final String HO_CAN_NGHEO = "Hộ cận nghèo";
     public static final String HO_BINH_THUONG = "Hộ bình thường";
@@ -31,6 +33,26 @@ public class Constants {
         if (s.equals(HO_CAN_NGHEO))
             return 1;
         return 0;
+    }
+
+    public static Boolean mapLoaiPhi(String s) {
+        if (s == null)
+            return null;
+        if (s.equals(DA_NOP))
+            return true;
+        if (s.equals(CHUA_NOP))
+            return false;
+        return null;
+    }
+
+    public static String mapLoaiPhi(Boolean i) {
+        if (i == null)
+            return null;
+        if (i.equals(Boolean.TRUE))
+            return DA_NOP;
+        if (i.equals(Boolean.FALSE))
+            return CHUA_NOP;
+        return null;
     }
 
     public static String mapCheDo(Integer i) {
