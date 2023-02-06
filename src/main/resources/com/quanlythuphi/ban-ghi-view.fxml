@@ -15,7 +15,7 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quanlythuphi.views.BanGhiView">
     <fx:include source="base-view.fxml" />
-   <AnchorPane fx:id="listBanGhiPage" layoutX="200.0" layoutY="40.0" prefHeight="660.0" prefWidth="1101.0">
+   <AnchorPane fx:id="listBanGhiPage" layoutX="200.0" layoutY="40.0" prefHeight="660.0" prefWidth="1101.0" visible="false">
       <children>
          <Text layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Danh sách bản ghi">
             <font>
@@ -65,7 +65,7 @@
          <ChoiceBox fx:id="trangThaiSearch" layoutX="547.0" layoutY="83.0" prefWidth="150.0" />
       </children>
    </AnchorPane>
-   <AnchorPane fx:id="createBanGhiPage" layoutX="197.0" layoutY="41.0" prefHeight="660.0" prefWidth="1100.0" visible="false">
+   <AnchorPane fx:id="createBanGhiPage" layoutX="197.0" layoutY="41.0" prefHeight="660.0" prefWidth="1100.0">
       <children>
          <Text layoutX="48.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thêm bản ghi mới">
             <font>

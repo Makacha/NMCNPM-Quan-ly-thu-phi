@@ -54,28 +54,28 @@
             </columns>
         </TableView>
     </AnchorPane>
-    <AnchorPane fx:id="createHoKhauPage" layoutX="201.0" layoutY="41.0" prefHeight="660.0" prefWidth="1100.0" visible="false">
+    <AnchorPane fx:id="createHoKhauPage" layoutX="201.0" layoutY="41.0" prefHeight="660.0" prefWidth="1100.0">
         <Text layoutX="53.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thêm mới hộ khẩu">
             <font>
                 <Font name="System Bold Italic" size="36.0" />
             </font>
         </Text>
-        <Text layoutX="50.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mã hộ khẩu">
+        <Text layoutX="50.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(*)Mã hộ khẩu:">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
         </Text>
-        <Text layoutX="53.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày lập">
+        <Text layoutX="53.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(*)Ngày lập:">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
         </Text>
-        <Text layoutX="53.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ">
+        <Text layoutX="53.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(*)Địa chỉ:">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
         </Text>
-        <Text layoutX="52.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chế độ">
+        <Text layoutX="52.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(*)Chế độ:">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
@@ -101,8 +101,18 @@
         <TextField fx:id="chuHo" layoutX="204.0" layoutY="377.0" />
         <ChoiceBox fx:id="cheDo" layoutX="204.0" layoutY="305.0" prefWidth="150.0" />
         <DatePicker fx:id="ngayLap" layoutX="204.0" layoutY="175.0" />
+      <Text fx:id="createAlert" fill="RED" layoutX="118.0" layoutY="484.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trường thông tin bắt buộc (*) không được bỏ trống!">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="unExistChuHoAlert" fill="RED" layoutX="160.0" layoutY="427.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Không tồn tại nhân khẩu có CMND này!">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
     </AnchorPane>
-    <AnchorPane fx:id="detailHoKhauPage" layoutX="196.0" layoutY="41.0" prefHeight="660.0" prefWidth="1107.0">
+    <AnchorPane fx:id="detailHoKhauPage" layoutX="196.0" layoutY="41.0" prefHeight="660.0" prefWidth="1107.0" visible="false">
         <Text layoutX="20.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thông tin chi tiết hộ khẩu">
             <font>
                 <Font name="System Bold Italic" size="30.0" />
@@ -167,5 +177,10 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
+      <Text fx:id="updateSuccesAlert" fill="RED" layoutX="229.0" layoutY="470.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thành công!">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
     </AnchorPane>
 </AnchorPane>

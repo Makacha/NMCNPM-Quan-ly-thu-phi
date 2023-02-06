@@ -164,43 +164,42 @@ public class BanGhiView implements Initializable  {
         tenKhoanPhiAlert.setVisible(false);
         maHoKhauAlert.setVisible(false);
         createAlert.setVisible(false);
-        boolean isValid = true;
-        if (tenKhoanPhi == null || maHoKhau == null || trangThai == null || ngayNop == null || soTien == null) {
+        if (tenKhoanPhi.getText().equals("") || maHoKhau.getText().equals("") || trangThai.getValue() == null || ngayNop.getValue() == null || soTien.getText().equals("")) {
             createAlert.setVisible(true);
-            isValid = false;
+            return false;
         }
         else {
             createAlert.setVisible(false);
         }
-        if (KhoanPhiController.getListKhoanPhiByFilter(tenKhoanPhi.getText(), null).size() == 0) {
+        if (KhoanPhiController.getKhoanPhiByTen(tenKhoanPhi.getText()) == null)  {
             tenKhoanPhiAlert.setVisible(true);
-            isValid = false;
+            return false;
         }
         else {
             tenKhoanPhiAlert.setVisible(false);
         }
-        if (HoKhauController.getListHoKhauByFilter(maHoKhau.getText(), null).size() == 0) {
+        if (HoKhauController.getHoKhauByMaHoKhau(maHoKhau.getText()) == null) {
             maHoKhauAlert.setVisible(true);
-            isValid = false;
+            return false;
         }
         else {
             maHoKhauAlert.setVisible(true);
         }
-        return isValid;
+        return true;
     }
 
     public boolean isUpdateRequestValid(TextField tenKhoanPhi, TextField maHoKhau) throws SQLException {
         tenKhoanPhiUpdateAlert.setVisible(false);
         maHoKhauUpdateAlert.setVisible(false);
         boolean isValid = true;
-        if (KhoanPhiController.getListKhoanPhiByFilter(tenKhoanPhi.getText(), null).size() == 0) {
+        if (KhoanPhiController.getKhoanPhiByTen(tenKhoanPhi.getText()) == null) {
             tenKhoanPhiUpdateAlert.setVisible(true);
             isValid = false;
         }
         else {
             tenKhoanPhiUpdateAlert.setVisible(false);
         }
-        if (HoKhauController.getListHoKhauByFilter(maHoKhau.getText(), null).size() == 0) {
+        if (HoKhauController.getHoKhauByMaHoKhau(maHoKhau.getText()) == null) {
             maHoKhauUpdateAlert.setVisible(true);
             isValid = false;
         }

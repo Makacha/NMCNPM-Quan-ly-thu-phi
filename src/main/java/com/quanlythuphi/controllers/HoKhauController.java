@@ -99,7 +99,8 @@ public class HoKhauController {
         hoKhau.setNgayLap(ngayLap);
         hoKhau.setDiaChi(diaChi);
         hoKhau.setCheDo(Constants.mapCheDo(cheDo));
-        hoKhau.setChuHoId(chuHoId);
+        if (chuHoId != null)
+            hoKhau.setChuHoId(chuHoId);
 
         return hoKhau;
     }

@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.sql.Date;
@@ -82,6 +83,9 @@ public class HoKhauView extends BaseView implements Initializable {
     @FXML
     private TextField chuHo;
 
+    public Text unExistChuHoAlert;
+    public Text createAlert;
+    public Text updateSuccesAlert;
     public TableView<NhanKhau> thanhVienOfHoKhau;
     public TableColumn<NhanKhau, String> hoTenThanhVienCol;
     public TableColumn<NhanKhau, String> soDienThoaiThanhVienCol;
@@ -97,7 +101,9 @@ public class HoKhauView extends BaseView implements Initializable {
         listHoKhauPage.setVisible(true);
         createHoKhauPage.setVisible(false);
         detailHoKhauPage.setVisible(false);
-
+        unExistChuHoAlert.setVisible(false);
+        updateSuccesAlert.setVisible(false);
+        createAlert.setVisible(false);
         //initialize TableColumns
         sttCol.setCellValueFactory(
                 hoKhauIntegerCellDataFeatures -> new SimpleObjectProperty<>(
@@ -143,10 +149,18 @@ public class HoKhauView extends BaseView implements Initializable {
     @FXML
     void createHoKhau(ActionEvent event) throws SQLException {
         if (maHoKhau.getText() == null || cheDo.getValue() == null || Constants.mapDateToString(Date.valueOf(ngayLap.getValue())) == null || diaChi.getText() == null) {
-            System.out.println("Trường thông tin bắt buộc không được bỏ trống");
+            createAlert.setVisible(true);
             return;
         }
-
+        else
+            createAlert.setVisible(false);
+        if (!chuHo.getText().equals("")) {
+            System.out.println(chuHo.getText());
+            if (NhanKhauController.getNhanKhauBySoDinhDanh(chuHo.getText()) == null) {
+                unExistChuHoAlert.setVisible(true);
+                return;
+            }
+        }
         NhanKhau nhanKhau = NhanKhauController.getNhanKhauBySoDinhDanh(chuHo.getText());
         HoKhau hoKhau = HoKhauController.newHoKhau(maHoKhau.getText(), Date.valueOf(ngayLap.getValue()),
                 diaChi.getText(), nhanKhau != null ? nhanKhau.getId() : null, cheDo.getValue());
@@ -166,6 +180,7 @@ public class HoKhauView extends BaseView implements Initializable {
         listHoKhauPage.setVisible(false);
         createHoKhauPage.setVisible(false);
         detailHoKhauPage.setVisible(true);
+        updateSuccesAlert.setVisible(false);
         currentHoKhau = hoKhau;
         maHoKhauDetail.setText(hoKhau.getMaHoKhau());
         diaChiDetail.setText(hoKhau.getDiaChi());
@@ -185,6 +200,8 @@ public class HoKhauView extends BaseView implements Initializable {
 
     @FXML
     void openCreateHoKhau(ActionEvent event) {
+        unExistChuHoAlert.setVisible(false);
+        createAlert.setVisible(false);
         listHoKhauPage.setVisible(false);
         createHoKhauPage.setVisible(true);
         detailHoKhauPage.setVisible(false);
@@ -226,7 +243,7 @@ public class HoKhauView extends BaseView implements Initializable {
                 diaChiDetail.getText(), nhanKhau != null ? nhanKhau.getId() : null, cheDoDetail.getValue());
         newHoKhau.setId(currentHoKhau.getId());
         if (HoKhauController.updateHoKhau(newHoKhau)) {
-            System.out.println("Thành công");
+            updateSuccesAlert.setVisible(true);
             if (nhanKhau != null) {
                 nhanKhau.setHoKhauId(HoKhauController.getHoKhauByMaHoKhau(maHoKhauDetail.getText()).getId());
                 NhanKhauController.updateNhanKhau(nhanKhau);
