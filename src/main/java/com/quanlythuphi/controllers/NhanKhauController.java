@@ -24,6 +24,18 @@ public class NhanKhauController {
         return null;
     }
 
+    public static ArrayList<NhanKhau> getListNhanKhauByHoKhauId(Integer hoKhauId) throws SQLException {
+        ArrayList<NhanKhau> nhanKhauList = new ArrayList<>();
+        String query = String.format("select * from nhan_khau where ho_khau_id = %d", hoKhauId);
+        ResultSet rs = DBConnection.executeQuery(query);
+        if (rs != null) {
+            while (rs.next()) {
+                nhanKhauList.add(new NhanKhau(rs));
+            }
+        }
+        return nhanKhauList;
+    }
+
     public static ArrayList<NhanKhau> getListNhanKhauByFilter(String hoTen, String soDinhDanh, String soDienThoai,
                                                               String diaChi) throws SQLException {
         ArrayList<NhanKhau> nhanKhauList = new ArrayList<>();
@@ -76,10 +88,10 @@ public class NhanKhauController {
 
     public static boolean updateNhanKhau(NhanKhau nhanKhau) {
         String query = String.format("update nhan_khau " +
-                "set ho_ten = '%s', ngay_sinh = '%s', dan_toc = '%s', so_dinh_danh = '%s', ton_giao = '%s', que_quan = '%s'" +
-                "gioi_tinh = '%s', dia_chi_thuong_tru = '%s', loai_cu_tru = '%s', so_dien_thaoi = '%s', noi_sinh = '%s'" +
-                "tinh_trang = '%s', quoc_tich = '%s', nghe_nghiep = '%s', ho_khau_id = %d" +
-                "where id = %d",
+                "set ho_ten = '%s', ngay_sinh = '%s', dan_toc = '%s', so_dinh_danh = '%s', ton_giao = '%s', que_quan = '%s'," +
+                " gioi_tinh = '%s', dia_chi_thuong_tru = '%s', loai_cu_tru = '%s', so_dien_thoai = '%s', noi_sinh = '%s'," +
+                " tinh_trang = '%s', quoc_tich = '%s', nghe_nghiep = '%s', ho_khau_id = %d" +
+                " where id = %d",
             nhanKhau.getHoTen(),
             nhanKhau.getNgaySinh(),
             nhanKhau.getDanToc(),
@@ -144,11 +156,16 @@ public class NhanKhauController {
     }
 
     public static NhanKhau getNhanKhauBySoDinhDanh(String soDinhDanh) throws SQLException {
-        String query = String.format("select id from nhan_khau where so_dinh_danh = '%s'", soDinhDanh);
+        String query = String.format("select * from nhan_khau where so_dinh_danh = '%s'", soDinhDanh);
         ResultSet rs = DBConnection.executeQuery(query);
-        if (rs == null) {
+        if (rs == null)
             return null;
-        } else
+        try {
+            rs.next();
             return new NhanKhau(rs);
+        } catch (Exception ignored) {
+
+        }
+        return null;
     }
 }

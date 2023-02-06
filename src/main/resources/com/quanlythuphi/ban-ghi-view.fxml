@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quanlythuphi.views.BanGhiView">
+    <fx:include source="base-view.fxml" />
+   <AnchorPane fx:id="listBanGhiPage" layoutX="200.0" layoutY="40.0" prefHeight="660.0" prefWidth="1101.0" visible="false">
+      <children>
+         <Text layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Danh sách bản ghi">
+            <font>
+               <Font name="System Bold Italic" size="24.0" />
+            </font>
+         </Text>
+         <Separator layoutY="48.0" prefHeight="1.0" prefWidth="1101.0" />
+         <TableView fx:id="danhSachBanGhi" layoutX="1.0" layoutY="130.0" prefHeight="530.0" prefWidth="1100.0">
+            <placeholder>
+               <Label text="Không tìm thấy kết quả." />
+            </placeholder>
+            <columns>
+               <TableColumn fx:id="sttCol" editable="false" prefWidth="75.0" resizable="false" style="-fx-alignment: CENTER;" text="STT" />
+               <TableColumn fx:id="tenKhoanPhiCol" editable="false" prefWidth="300.0" text="Tên khoản phí" />
+               <TableColumn fx:id="maHoKhauCol" editable="false" minWidth="0.0" prefWidth="150.0" resizable="false" text="Mã hộ khẩu" />
+               <TableColumn fx:id="trangThaiCol" prefWidth="150.0" text="Trạng thái" />
+               <TableColumn fx:id="soTienCol" prefWidth="150.0" text="Số tiền" />
+            </columns>
+         </TableView>
+         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="886.0" layoutY="4.0" mnemonicParsing="false" onAction="#openCreateBanGhiPage" style="-fx-background-color: #e8682c;" text="Thêm bản ghi mới" textFill="WHITE">
+            <font>
+               <Font name="System Bold Italic" size="18.0" />
+            </font>
+         </Button>
+         <Text layoutX="23.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tên khoản phí">
+            <font>
+               <Font size="16.0" />
+            </font>
+         </Text>
+         <Text layoutX="283.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mã hộ khẩu">
+            <font>
+               <Font size="16.0" />
+            </font>
+         </Text>
+         <Text layoutX="551.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trạng thái">
+            <font>
+               <Font size="16.0" />
+            </font>
+         </Text>
+         <TextField fx:id="tenKhoanPhiSearch" layoutX="23.0" layoutY="83.0" />
+         <TextField fx:id="maHoKhauSearch" layoutX="283.0" layoutY="83.0" />
+         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="789.0" layoutY="64.0" mnemonicParsing="false" onAction="#searchBanGhi" style="-fx-background-color: #ed1f1f;" text="Tìm kiếm" textFill="WHITE">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Button>
+         <ChoiceBox fx:id="trangThaiSearch" layoutX="547.0" layoutY="83.0" prefWidth="150.0" />
+      </children>
+   </AnchorPane>
+   <AnchorPane fx:id="createBanGhiPage" layoutX="197.0" layoutY="41.0" prefHeight="660.0" prefWidth="1100.0">
+      <children>
+         <Text layoutX="48.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thêm bản ghi mới">
+            <font>
+               <Font name="System Bold Italic" size="24.0" />
+            </font>
+         </Text>
+         <Text layoutX="74.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(*)Tên khoản phí:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+         <Separator layoutY="48.0" prefHeight="3.0" prefWidth="1101.0" />
+         <Text layoutX="74.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(*)Mã hộ khẩu:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+         <Text layoutX="74.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(*)Ngày nộp:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+         <Text layoutX="74.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(*)Trạng thái:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+         <Text layoutX="74.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(*)Số tiền:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+         <TextField fx:id="tenKhoanPhi" layoutX="274.0" layoutY="71.0" />
+         <TextField fx:id="maHoKhau" layoutX="274.0" layoutY="137.0" />
+         <TextField fx:id="soTien" layoutX="274.0" layoutY="343.0" />
+         <Text layoutX="510.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ghi chú:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+         <TextArea fx:id="ghiChu" layoutX="600.0" layoutY="71.0" prefHeight="304.0" prefWidth="461.0" />
+         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="274.0" layoutY="529.0" mnemonicParsing="false" onAction="#openListBanGhiPage" style="-fx-background-color: #366fd1;" text="Quay lại" textFill="WHITE">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Button>
+         <ChoiceBox fx:id="trangThai" layoutX="274.0" layoutY="274.0" prefWidth="150.0" />
+         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="529.0" mnemonicParsing="false" onAction="#createBanGhi" prefHeight="35.0" style="-fx-background-color: #23c233;" text="Tạo mới" textFill="WHITE">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Button>
+         <DatePicker fx:id="ngayNop" layoutX="276.0" layoutY="204.0" />
+         <Text fx:id="tenKhoanPhiAlert" fill="RED" layoutX="241.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Không tồn tại khoản phí này !" wrappingWidth="244.01171875">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Text>
+         <Text fx:id="maHoKhauAlert" fill="#ee0000" layoutX="241.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Không tồn tại mã hộ khẩu này !" wrappingWidth="227.13671875">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Text>
+         <Text fx:id="createAlert" fill="#ee0000" layoutX="198.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Các trường thông tin * không được bỏ trống" wrappingWidth="301.13671875">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Text>
+      </children>
+   </AnchorPane>
+   <AnchorPane fx:id="detailBanGhiPage" layoutX="200.0" layoutY="41.0" prefHeight="660.0" prefWidth="1101.0" visible="false">
+      <children>
+         <Text fx:id="failUpdate" fill="#ee0000" layoutX="258.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hệ thống đang có lỗi!" wrappingWidth="227.13671875">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Text>
+         <Text layoutX="31.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thông tin chi tiết bản ghi nộp phí">
+            <font>
+               <Font name="System Bold Italic" size="24.0" />
+            </font>
+         </Text>
+         <Separator layoutY="48.0" prefHeight="3.0" prefWidth="1100.0" />
+         <Text layoutX="70.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tên khoản phí:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+         <Text layoutX="75.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mã hộ khẩu:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+         <Text layoutX="79.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trạng thái:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+         <Text layoutX="79.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày nộp:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+         <Text layoutX="539.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ghi chú:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+         <Text layoutX="87.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số tiền:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+         <TextField fx:id="tenKhoanPhiDetail" layoutX="231.0" layoutY="85.0" />
+         <TextField fx:id="maHoKhauDetail" layoutX="231.0" layoutY="168.0" />
+         <TextField fx:id="soTienDetail" layoutX="231.0" layoutY="434.0" />
+         <TextArea fx:id="ghiChuDetail" layoutX="640.0" layoutY="93.0" prefHeight="304.0" prefWidth="402.0" />
+         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="87.0" layoutY="566.0" mnemonicParsing="false" onAction="#updateBanGhi" prefHeight="35.0" prefWidth="70.0" style="-fx-background-color: #23c233;" text="Lưu" textFill="WHITE">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Button>
+         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="241.0" layoutY="566.0" mnemonicParsing="false" onAction="#openListBanGhiPage" prefHeight="35.0" style="-fx-background-color: #366fd1;" text="Quay lại" textFill="WHITE">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Button>
+         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="408.0" layoutY="566.0" mnemonicParsing="false" onAction="#deleteBanGhi" prefHeight="35.0" prefWidth="70.0" style="-fx-background-color: #ed1f1f;" text="Xóa" textFill="WHITE">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Button>
+         <ChoiceBox fx:id="trangThaiDetail" layoutX="231.0" layoutY="255.0" prefWidth="150.0" />
+         <DatePicker fx:id="ngayNopDetail" layoutX="231.0" layoutY="343.0" />
+         <Text fx:id="tenKhoanPhiUpdateAlert" fill="RED" layoutX="231.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Không tồn tại khoản phí này !" wrappingWidth="244.01171875">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Text>
+         <Text fx:id="maHoKhauUpdateAlert" fill="#ee0000" layoutX="231.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Không tồn tại mã hộ khẩu này !" wrappingWidth="227.13671875">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Text>
+         <Text fx:id="successUpdate" fill="#ee0000" layoutX="258.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cập nhật bản ghi thành công!" wrappingWidth="227.13671875">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Text>
+      </children>
+   </AnchorPane>
+</AnchorPane>

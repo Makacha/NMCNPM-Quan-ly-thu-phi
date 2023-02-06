@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quanlythuphi.views.BaseView">
    <VBox layoutY="40.0" prefHeight="660.0" prefWidth="200.0" style="-fx-background-color: #272323;">
-      <Pane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #272323; -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,8), 5, 0, 0, 0);">
+      <Pane onMouseClicked="#viewThongKe" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #272323; -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,8), 5, 0, 0, 0);">
          <Label alignment="CENTER" contentDisplay="CENTER" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" text="Thống kê khoản phí" textFill="WHITE">
             <font>
                <Font size="20.0" />
@@ -22,7 +22,7 @@
             </font>
          </Label>
       </Pane>
-      <Pane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #272323; -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,8), 5, 0, 0, 0);">
+      <Pane onMouseClicked="#viewBanGhi" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #272323; -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,8), 5, 0, 0, 0);">
          <Label alignment="CENTER" contentDisplay="CENTER" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" text="Quản lý thu phí" textFill="WHITE">
             <font>
                <Font size="20.0" />

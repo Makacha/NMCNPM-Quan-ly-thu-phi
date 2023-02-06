@@ -92,16 +92,15 @@ public class HoKhauController {
         return DBConnection.excuteUpdate(query) == 1;
     }
 
-    public static HoKhau newHoKhau(String maHoKhau, Date ngayLap, String diaChi, String chuHoId, String cheDo) {
+    public static HoKhau newHoKhau(String maHoKhau, Date ngayLap, String diaChi, Integer chuHoId, String cheDo) {
         HoKhau hoKhau = new HoKhau();
 
         hoKhau.setMaHoKhau(maHoKhau);
         hoKhau.setNgayLap(ngayLap);
         hoKhau.setDiaChi(diaChi);
         hoKhau.setCheDo(Constants.mapCheDo(cheDo));
-
-        // _______________ Update________________________
-        //hoKhau.setChuHoId(Constants.mapCMNDtoNhanKhauId(chuHoId));
+        if (chuHoId != null)
+            hoKhau.setChuHoId(chuHoId);
 
         return hoKhau;
     }

@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,7 +43,8 @@ public class KhoanPhiView extends BaseView implements Initializable {
     public TableColumn<KhoanPhi, Integer> sttCol;
     public TableColumn<KhoanPhi, String> tenKhoanPhiCol;
     public TableColumn<KhoanPhi, String> loaiKhoanPhiCol;
-
+    public Text createAlert;
+    public Text updateSuccessAlert;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,6 +57,8 @@ public class KhoanPhiView extends BaseView implements Initializable {
         listKhoanPhiPage.setVisible(true);
         createKhoanPhiPage.setVisible(false);
         detailKhoanPhiPage.setVisible(false);
+        updateSuccessAlert.setVisible(false);
+        createAlert.setVisible(false);
         sttCol.setCellValueFactory(
             khoanPhiIntegerCellDataFeatures -> new SimpleObjectProperty<>(
                 khoanPhiIntegerCellDataFeatures.getTableView().getItems().indexOf(
@@ -84,10 +88,13 @@ public class KhoanPhiView extends BaseView implements Initializable {
     }
 
     public void createKhoanPhi(ActionEvent actionEvent) {
+        createAlert.setVisible(false);
         if (tenKhoanPhi.getText() == null || loaiKhoanPhi.getValue() == null) {
-            System.out.println("Trường thông tin bắt buộc không được bỏ trống");
+            createAlert.setVisible(true);
             return;
         }
+        else
+            createAlert.setVisible(false);
         KhoanPhi khoanPhi = KhoanPhiController.newKhoanPhi(tenKhoanPhi.getText(), loaiKhoanPhi.getValue(),
             tuTuoi.getText(), denTuoi.getText(), cheDo.getValue());
         if (KhoanPhiController.createKhoanPhi(khoanPhi)) {
@@ -118,6 +125,7 @@ public class KhoanPhiView extends BaseView implements Initializable {
     }
 
     public void openDetailKhoanPhiPage(Event event, KhoanPhi khoanPhi) {
+        updateSuccessAlert.setVisible(false);
         danhSachKhoanPhi.getItems().clear();
         listKhoanPhiPage.setVisible(false);
         createKhoanPhiPage.setVisible(false);
@@ -132,14 +140,16 @@ public class KhoanPhiView extends BaseView implements Initializable {
 
     public void updateKhoanPhi(ActionEvent actionEvent) {
         if (tenKhoanPhiDetail.getText() == null || loaiKhoanPhiDetail.getValue() == null) {
-            System.out.println("Trường thông tin bắt buộc không được bỏ trống");
+                System.out.println("Trường thông tin bắt buộc không được bỏ trống");
             return;
         }
         current = KhoanPhiController.newKhoanPhi(current.getId(), tenKhoanPhiDetail.getText(),
             loaiKhoanPhiDetail.getValue(), tuTuoiDetail.getText(), denTuoiDetail.getText(), cheDoDetail.getValue());
         if (KhoanPhiController.updateKhoanPhi(current)) {
+            updateSuccessAlert.setVisible(true);
             System.out.println("Thành công");
         } else {
+            updateSuccessAlert.setVisible(false);
             System.out.println("Hệ thống đang có lỗi");
         }
     }

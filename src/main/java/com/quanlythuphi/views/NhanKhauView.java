@@ -1,6 +1,7 @@
 package com.quanlythuphi.views;
 
 import com.quanlythuphi.constants.Constants;
+import com.quanlythuphi.controllers.HoKhauController;
 import com.quanlythuphi.controllers.KhoanPhiController;
 import com.quanlythuphi.controllers.NhanKhauController;
 import com.quanlythuphi.models.KhoanPhi;
@@ -14,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -68,8 +70,10 @@ public class NhanKhauView extends BaseView implements Initializable {
     public ChoiceBox<String> gioiTinhDetail;
     public ChoiceBox<String> tinhTrangDetail;
     public ChoiceBox<String> loaiCuTruDetail;
-
-
+    public Text createAlert;
+    public Text unExistMaHoKhauAlert;
+    public Text unExistUpdaetHoKhau;
+    public Text updateSuccess;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gioiTinh.getItems().addAll(Constants.GIOI_TINH_NAM, Constants.GIOI_TINH_NU, Constants.GIOI_TINH_KHAC);
@@ -81,11 +85,15 @@ public class NhanKhauView extends BaseView implements Initializable {
         listNhanKhauPage.setVisible(true);
         createNhanKhauPage.setVisible(false);
         detailKhoanPhiPage.setVisible(false);
+        createAlert.setVisible(false);
+        unExistMaHoKhauAlert.setVisible(false);
+        unExistUpdaetHoKhau.setVisible(false);
+        updateSuccess.setVisible(false);
         sttCol.setCellValueFactory(nhanKhauIntegerCellDataFeatures -> new SimpleObjectProperty<>(
             nhanKhauIntegerCellDataFeatures.getTableView().getItems()
                 .indexOf(nhanKhauIntegerCellDataFeatures.getValue())
         ));
-        tenNhanKhauCol.setCellValueFactory(new PropertyValueFactory<>("tenNhanKhau"));
+        tenNhanKhauCol.setCellValueFactory(new PropertyValueFactory<>("hoTen"));
         gioiTinhCol.setCellValueFactory(new PropertyValueFactory<>("gioiTinh"));
         soDinhDanhCol.setCellValueFactory(new PropertyValueFactory<>("soDinhDanh"));
         soDienThoaiCol.setCellValueFactory(new PropertyValueFactory<>("soDienThoai"));
@@ -99,21 +107,34 @@ public class NhanKhauView extends BaseView implements Initializable {
             });
             return row;
         });
+        ObservableList<NhanKhau> nhanKhauList = null;
+        try {
+            nhanKhauList = FXCollections.observableArrayList(
+                    NhanKhauController.getListNhanKhauByFilter(null, null, null, null));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        danhSachNhanKhau.setItems(nhanKhauList);
     }
 
-    public void openListNhanKhauPage(Event event) {
+    public void openListNhanKhauPage(Event event) throws SQLException {
         listNhanKhauPage.setVisible(true);
         createNhanKhauPage.setVisible(false);
         detailKhoanPhiPage.setVisible(false);
+        searchNhanKhau((ActionEvent) event);
     }
 
     public void openCreateNhanKhauPage(ActionEvent actionEvent) {
         listNhanKhauPage.setVisible(false);
         createNhanKhauPage.setVisible(true);
         detailKhoanPhiPage.setVisible(false);
+        createAlert.setVisible(false);
+        unExistMaHoKhauAlert.setVisible(false);
     }
 
     public void openDetailNhanKhauPage(Event event, NhanKhau nhanKhau) {
+        unExistUpdaetHoKhau.setVisible(false);
+        updateSuccess.setVisible(false);
         listNhanKhauPage.setVisible(false);
         createNhanKhauPage.setVisible(false);
         detailKhoanPhiPage.setVisible(true);
@@ -132,6 +153,8 @@ public class NhanKhauView extends BaseView implements Initializable {
         gioiTinhDetail.setValue(current.getGioiTinh());
         tinhTrangDetail.setValue(current.getTinhTrang());
         loaiCuTruDetail.setValue(current.getLoaiCuTru());
+        if (current.getHoKhauId() != null)
+            maHoKhauDetail.setText(HoKhauController.getHoKhau(current.getHoKhauId()).getMaHoKhau());
     }
 
     public void searchNhanKhau(ActionEvent actionEvent) throws SQLException {
@@ -142,10 +165,20 @@ public class NhanKhauView extends BaseView implements Initializable {
     }
 
     public void createNhanKhau(ActionEvent actionEvent) {
-        if (tenNhanKhau == null || soDinhDanh == null || ngaySinh == null) {
-            System.out.println("Trường thông tin bắt buộc không được bỏ trống");
+        if (tenNhanKhau.getText().equals("") || soDinhDanh.getText().equals("") || ngaySinh.getValue() == null ||
+                soDienThoai.getText().equals("") || loaiCuTru.getValue() == null || tinhTrang.getValue() == null ||
+                gioiTinh.getValue() == null || maHoKhau.getText().equals("")) {
+            createAlert.setVisible(true);
             return;
         }
+        else
+           createAlert.setVisible(false);
+        if (HoKhauController.getHoKhauByMaHoKhau(maHoKhau.getText()) == null) {
+            unExistMaHoKhauAlert.setVisible(true);
+            return;
+        }
+        else
+            unExistMaHoKhauAlert.setVisible(false);
         NhanKhau nhanKhau = NhanKhauController.newNhanKhau(tenNhanKhau.getText(),
             ngaySinh.getValue() != null ? Date.valueOf(ngaySinh.getValue()) : null, danToc.getText(),
             soDinhDanh.getText(), tonGiao.getText(), queQuan.getText(), gioiTinh.getValue(), diaChi.getText(),
@@ -161,6 +194,12 @@ public class NhanKhauView extends BaseView implements Initializable {
     }
 
     public void updateNhanKhau(ActionEvent actionEvent) {
+        if (HoKhauController.getHoKhauByMaHoKhau(maHoKhauDetail.getText()) == null) {
+            unExistUpdaetHoKhau.setVisible(true);
+            return;
+        }
+        else
+            unExistUpdaetHoKhau.setVisible(false);
         current = NhanKhauController.newNhanKhau(current.getId(), tenNhanKhauDetail.getText(),
             ngaySinhDetail.getValue() != null ? Date.valueOf(ngaySinhDetail.getValue()) : null, danTocDetail.getText(),
             soDinhDanhDetail.getText(), tonGiaoDetail.getText(), queQuanDetail.getText(), gioiTinhDetail.getValue(),
@@ -168,18 +207,20 @@ public class NhanKhauView extends BaseView implements Initializable {
             tinhTrangDetail.getValue(), quocTichDetail.getText(), ngheNghiepDetail.getText(), maHoKhauDetail.getText()
         );
         if (NhanKhauController.updateNhanKhau(current)) {
+            updateSuccess.setVisible(true);
             System.out.println("Thành công");
         } else {
             System.out.println("Hệ thống đang có lỗi");
         }
     }
 
-    public void deleteNhanKhau(ActionEvent actionEvent) {
+    public void deleteNhanKhau(ActionEvent actionEvent) throws SQLException {
         if (NhanKhauController.deleteNhanKhau(current)) {
             System.out.println("Thành công");
         } else {
             System.out.println("Hệ thống đang có lỗi");
         }
+        current = null;
         openListNhanKhauPage(actionEvent);
     }
 }

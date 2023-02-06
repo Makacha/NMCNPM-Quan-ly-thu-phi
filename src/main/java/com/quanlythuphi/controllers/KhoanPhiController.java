@@ -22,6 +22,20 @@ public class KhoanPhiController {
         return null;
     }
 
+    public static KhoanPhi getKhoanPhiByTen(String tenKhoanPhi) {
+        ResultSet rs = DBConnection.executeQuery(String.format("select * from khoan_phi where ten_khoan_phi = '%s'", tenKhoanPhi));
+        if (rs == null)
+            return null;
+        try {
+            rs.next();
+            return new KhoanPhi(rs);
+        } catch (Exception ignored) {
+
+        }
+        return null;
+
+    }
+
     public static ArrayList<KhoanPhi> getListKhoanPhiByFilter(String tenKhoanPhi,
                                                               Boolean loaiKhoanPhi) throws SQLException {
         ArrayList<KhoanPhi> khoanPhiList = new ArrayList<KhoanPhi>();
@@ -97,5 +111,19 @@ public class KhoanPhiController {
         KhoanPhi khoanPhi = newKhoanPhi(tenKhoanPhi, loaiKhoanPhi, tuTuoi, denTuoi, cheDo);
         khoanPhi.setId(id);
         return khoanPhi;
+    }
+
+    public static ArrayList<String> getListTenKhoanPhiByTen(String value) throws SQLException {
+        ArrayList<String> tenKhoanPhiList = new ArrayList<String>();
+        String query = String.format("select * from khoan_phi where lower(ten_khoan_phi) like '%%%s%%'", value);
+        ResultSet rs = DBConnection.executeQuery(query);
+        if (rs != null) {
+            while (rs.next()) {
+                KhoanPhi khoanPhi = new KhoanPhi(rs);
+                tenKhoanPhiList.add(khoanPhi.getTenKhoanPhi());
+            }
+        }
+        return tenKhoanPhiList;
+
     }
 }
