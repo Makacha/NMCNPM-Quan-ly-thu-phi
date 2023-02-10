@@ -14,7 +14,7 @@
 <AnchorPane prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quanlythuphi.views.KhoanPhiView">
     <fx:include source="base-view.fxml" />
     <AnchorPane layoutX="200.0" layoutY="40.0" prefHeight="650.0" prefWidth="1100.0">
-        <AnchorPane fx:id="createKhoanPhiPage" prefHeight="660.0" prefWidth="1100.0" visible="false">
+        <AnchorPane fx:id="createKhoanPhiPage" prefHeight="660.0" prefWidth="1100.0">
             <Label layoutX="16.0" layoutY="8.0" text="Khai báo khoản phí mới">
                 <font>
                     <Font size="24.0" />
@@ -61,7 +61,12 @@
                 </font>
             </Button>
             <ChoiceBox fx:id="cheDo" layoutX="97.0" layoutY="234.0" prefWidth="150.0" />
-         <Text fx:id="createAlert" fill="RED" layoutX="145.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trường thông tin bắt buộc (*) không được bỏ trống!">
+         <Text fx:id="createAlert" fill="RED" layoutX="144.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trường thông tin bắt buộc (*) không được bỏ trống!">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Text>
+         <Text fx:id="khoanPhiExistAlert" fill="RED" layoutX="163.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Khoản phí có tên này đã tồn tại!">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>
@@ -118,7 +123,7 @@
                 </font>
             </Label>
         </AnchorPane>
-        <AnchorPane fx:id="detailKhoanPhiPage" prefHeight="640.0" prefWidth="1100.0">
+        <AnchorPane fx:id="detailKhoanPhiPage" prefHeight="640.0" prefWidth="1100.0" visible="false">
             <Label layoutX="16.0" layoutY="8.0" text="Thông tin chi tiết khoản phí">
                 <font>
                     <Font size="24.0" />

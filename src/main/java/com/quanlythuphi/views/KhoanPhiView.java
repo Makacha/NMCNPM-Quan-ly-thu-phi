@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 
 public class KhoanPhiView extends BaseView implements Initializable {
 
+    public Text khoanPhiExistAlert;
     private KhoanPhi current;
 
     public ChoiceBox<String> loaiKhoanPhi;
@@ -58,6 +59,7 @@ public class KhoanPhiView extends BaseView implements Initializable {
         createKhoanPhiPage.setVisible(false);
         detailKhoanPhiPage.setVisible(false);
         updateSuccessAlert.setVisible(false);
+        khoanPhiExistAlert.setVisible(false);
         createAlert.setVisible(false);
         sttCol.setCellValueFactory(
             khoanPhiIntegerCellDataFeatures -> new SimpleObjectProperty<>(
@@ -89,12 +91,20 @@ public class KhoanPhiView extends BaseView implements Initializable {
 
     public void createKhoanPhi(ActionEvent actionEvent) throws SQLException {
         createAlert.setVisible(false);
+        khoanPhiExistAlert.setVisible(false);
         if (tenKhoanPhi.getText() == null || loaiKhoanPhi.getValue() == null) {
             createAlert.setVisible(true);
             return;
         }
         else
             createAlert.setVisible(false);
+        if (KhoanPhiController.getKhoanPhiByTen(tenKhoanPhi.getText()) != null) {
+            khoanPhiExistAlert.setVisible(true);
+            return;
+        }
+        else {
+            khoanPhiExistAlert.setVisible(false);
+        }
         KhoanPhi khoanPhi = KhoanPhiController.newKhoanPhi(tenKhoanPhi.getText(), loaiKhoanPhi.getValue(),
             tuTuoi.getText(), denTuoi.getText(), cheDo.getValue(), soTien.getText());
         if (KhoanPhiController.createKhoanPhi(khoanPhi)) {
@@ -116,6 +126,7 @@ public class KhoanPhiView extends BaseView implements Initializable {
         tuTuoi.setText(null);
         denTuoi.setText(null);
         cheDo.setValue(null);
+        khoanPhiExistAlert.setVisible(false);
     }
 
     public void openListKhoanPhiPage(ActionEvent actionEvent) throws SQLException {

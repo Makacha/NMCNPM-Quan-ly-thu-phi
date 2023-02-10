@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 public class BanGhiView implements Initializable  {
 
+    public Text tenKhoanPhiExistAlert;
     private BanGhi current;
     @FXML
     private AnchorPane createBanGhiPage;

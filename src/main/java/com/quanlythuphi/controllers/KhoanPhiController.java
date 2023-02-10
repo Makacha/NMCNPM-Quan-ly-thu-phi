@@ -96,7 +96,6 @@ public class KhoanPhiController {
         else
             return false;
     }
-
     public static boolean updateKhoanPhi(KhoanPhi khoanPhi) {
         String query = String.format("update khoan_phi " +
                 "set ten_khoan_phi = '%s', the_loai = %b, tu_tuoi = %d, den_tuoi = %d, che_do = %d, so_tien = %d " +

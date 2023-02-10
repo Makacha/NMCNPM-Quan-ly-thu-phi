@@ -111,6 +111,11 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
+      <Text fx:id="maHoKhauExistAlert" fill="RED" layoutX="204.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mã hộ khẩu đã tồn tại!">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
     </AnchorPane>
     <AnchorPane fx:id="detailHoKhauPage" layoutX="196.0" layoutY="41.0" prefHeight="660.0" prefWidth="1107.0" visible="false">
         <Text layoutX="20.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thông tin chi tiết hộ khẩu">
