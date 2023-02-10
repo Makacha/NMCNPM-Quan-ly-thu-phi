@@ -4,7 +4,6 @@ import com.quanlythuphi.constants.Constants;
 import com.quanlythuphi.controllers.KhoanPhiController;
 import com.quanlythuphi.models.KhoanPhi;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,7 +14,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -28,6 +26,7 @@ public class KhoanPhiView extends BaseView implements Initializable {
     public TextField tenKhoanPhi;
     public TextField tuTuoi;
     public TextField denTuoi;
+    public TextField soTien;
     public ChoiceBox<String> cheDo;
     public AnchorPane createKhoanPhiPage;
     public AnchorPane listKhoanPhiPage;
@@ -36,6 +35,7 @@ public class KhoanPhiView extends BaseView implements Initializable {
     public TextField tenKhoanPhiDetail;
     public TextField tuTuoiDetail;
     public TextField denTuoiDetail;
+    public TextField soTienDetail;
     public ChoiceBox<String> cheDoDetail;
     public ChoiceBox<String> loaiKhoanPhiSearch;
     public TextField tenKhoanPhiSearch;
@@ -87,7 +87,7 @@ public class KhoanPhiView extends BaseView implements Initializable {
         danhSachKhoanPhi.setItems(khoanPhiList);
     }
 
-    public void createKhoanPhi(ActionEvent actionEvent) {
+    public void createKhoanPhi(ActionEvent actionEvent) throws SQLException {
         createAlert.setVisible(false);
         if (tenKhoanPhi.getText() == null || loaiKhoanPhi.getValue() == null) {
             createAlert.setVisible(true);
@@ -96,8 +96,9 @@ public class KhoanPhiView extends BaseView implements Initializable {
         else
             createAlert.setVisible(false);
         KhoanPhi khoanPhi = KhoanPhiController.newKhoanPhi(tenKhoanPhi.getText(), loaiKhoanPhi.getValue(),
-            tuTuoi.getText(), denTuoi.getText(), cheDo.getValue());
+            tuTuoi.getText(), denTuoi.getText(), cheDo.getValue(), soTien.getText());
         if (KhoanPhiController.createKhoanPhi(khoanPhi)) {
+            khoanPhi = KhoanPhiController.getKhoanPhiByTen(khoanPhi.getTenKhoanPhi());
             System.out.println("Thành công");
             openDetailKhoanPhiPage(actionEvent, khoanPhi);
         } else {
@@ -136,6 +137,7 @@ public class KhoanPhiView extends BaseView implements Initializable {
         tuTuoiDetail.setText(current.getTuTuoi() == null ? null : String.valueOf(current.getTuTuoi()));
         denTuoiDetail.setText(current.getDenTuoi() == null ? null : String.valueOf(current.getDenTuoi()));
         cheDoDetail.setValue(Constants.mapCheDo(current.getCheDo()));
+        soTienDetail.setText(current.getSoTien() == null ? null : String.valueOf(current.getSoTien()));
     }
 
     public void updateKhoanPhi(ActionEvent actionEvent) {
@@ -144,7 +146,8 @@ public class KhoanPhiView extends BaseView implements Initializable {
             return;
         }
         current = KhoanPhiController.newKhoanPhi(current.getId(), tenKhoanPhiDetail.getText(),
-            loaiKhoanPhiDetail.getValue(), tuTuoiDetail.getText(), denTuoiDetail.getText(), cheDoDetail.getValue());
+            loaiKhoanPhiDetail.getValue(), tuTuoiDetail.getText(), denTuoiDetail.getText(), cheDoDetail.getValue(),
+            soTienDetail.getText());
         if (KhoanPhiController.updateKhoanPhi(current)) {
             updateSuccessAlert.setVisible(true);
             System.out.println("Thành công");

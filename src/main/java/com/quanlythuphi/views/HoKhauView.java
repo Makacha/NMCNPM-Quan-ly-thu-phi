@@ -2,11 +2,9 @@ package com.quanlythuphi.views;
 
 import com.quanlythuphi.constants.Constants;
 import com.quanlythuphi.controllers.HoKhauController;
-import com.quanlythuphi.controllers.KhoanPhiController;
 import com.quanlythuphi.controllers.NhanKhauController;
 import com.quanlythuphi.models.HoKhau;
 import com.quanlythuphi.models.NhanKhau;
-import javafx.beans.Observable;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

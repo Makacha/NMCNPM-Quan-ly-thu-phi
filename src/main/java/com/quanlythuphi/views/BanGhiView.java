@@ -1,7 +1,6 @@
 package com.quanlythuphi.views;
 
 import com.quanlythuphi.constants.Constants;
-import com.quanlythuphi.constants.ChuyenTienRaChu;
 import com.quanlythuphi.controllers.BanGhiController;
 import com.quanlythuphi.controllers.HoKhauController;
 import com.quanlythuphi.controllers.KhoanPhiController;

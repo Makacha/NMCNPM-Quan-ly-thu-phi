@@ -61,11 +61,17 @@
                 </font>
             </Button>
             <ChoiceBox fx:id="cheDo" layoutX="97.0" layoutY="234.0" prefWidth="150.0" />
-         <Text fx:id="createAlert" fill="RED" layoutX="144.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trường thông tin bắt buộc (*) không được bỏ trống!">
+         <Text fx:id="createAlert" fill="RED" layoutX="145.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trường thông tin bắt buộc (*) không được bỏ trống!">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>
          </Text>
+         <Label layoutX="21.0" layoutY="283.0" text="Số tiền:">
+            <font>
+               <Font size="16.0" />
+            </font>
+         </Label>
+         <TextField fx:id="soTien" layoutX="184.0" layoutY="283.0" />
         </AnchorPane>
         <AnchorPane fx:id="listKhoanPhiPage" prefHeight="640.0" prefWidth="1100.0" visible="false">
             <ChoiceBox fx:id="loaiKhoanPhiSearch" layoutX="343.0" layoutY="90.0" prefHeight="25.0" prefWidth="118.0" />
@@ -164,11 +170,17 @@
                     <Font size="18.0" />
                 </font>
             </Button>
-         <Text fx:id="updateSuccessAlert" fill="RED" layoutX="160.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thành công!">
+         <Text fx:id="updateSuccessAlert" fill="RED" layoutX="160.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thành công!">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>
          </Text>
+         <Label layoutX="21.0" layoutY="284.0" text="Số tiền:">
+            <font>
+               <Font size="16.0" />
+            </font>
+         </Label>
+         <TextField fx:id="soTienDetail" layoutX="142.0" layoutY="283.0" />
         </AnchorPane>
     </AnchorPane>
 </AnchorPane>

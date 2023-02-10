@@ -2,9 +2,7 @@ package com.quanlythuphi.views;
 
 import com.quanlythuphi.constants.Constants;
 import com.quanlythuphi.controllers.HoKhauController;
-import com.quanlythuphi.controllers.KhoanPhiController;
 import com.quanlythuphi.controllers.NhanKhauController;
-import com.quanlythuphi.models.KhoanPhi;
 import com.quanlythuphi.models.NhanKhau;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -18,9 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.sql.Date;
-import java.time.LocalDate;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class NhanKhauView extends BaseView implements Initializable {
@@ -164,7 +161,7 @@ public class NhanKhauView extends BaseView implements Initializable {
         danhSachNhanKhau.setItems(nhanKhauList);
     }
 
-    public void createNhanKhau(ActionEvent actionEvent) {
+    public void createNhanKhau(ActionEvent actionEvent) throws SQLException {
         if (tenNhanKhau.getText().equals("") || soDinhDanh.getText().equals("") || ngaySinh.getValue() == null ||
                 soDienThoai.getText().equals("") || loaiCuTru.getValue() == null || tinhTrang.getValue() == null ||
                 gioiTinh.getValue() == null || maHoKhau.getText().equals("")) {
@@ -186,11 +183,12 @@ public class NhanKhauView extends BaseView implements Initializable {
             ngheNghiep.getText(), maHoKhau.getText()
         );
         if (NhanKhauController.createNhanKhau(nhanKhau)) {
+            nhanKhau = NhanKhauController.getNhanKhauBySoDinhDanh(nhanKhau.getSoDinhDanh());
             System.out.println("Thành công");
+            openDetailNhanKhauPage(actionEvent, nhanKhau);
         } else {
             System.out.println("Hệ thống đang có lỗi");
         }
-        openDetailNhanKhauPage(actionEvent, nhanKhau);
     }
 
     public void updateNhanKhau(ActionEvent actionEvent) {

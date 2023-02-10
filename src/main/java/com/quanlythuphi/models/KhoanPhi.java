@@ -6,6 +6,7 @@ import java.sql.SQLException;
 public class KhoanPhi extends Base {
     private String tenKhoanPhi;
     private boolean theLoai;
+    private Integer soTien;
     private Integer tuTuoi;
     private Integer denTuoi;
     private Integer cheDo;
@@ -22,9 +23,18 @@ public class KhoanPhi extends Base {
         this.id = rs.getInt("id");
         this.tenKhoanPhi = rs.getString("ten_khoan_phi");
         this.theLoai = rs.getBoolean("the_loai");
+        this.soTien =  rs.getObject("so_tien") == null ? null : rs.getInt("so_tien");
         this.tuTuoi =  rs.getObject("tu_tuoi") == null ? null : rs.getInt("tu_tuoi");
         this.denTuoi =  rs.getObject("den_tuoi") == null ? null : rs.getInt("den_tuoi");
         this.cheDo =  rs.getObject("che_do") == null ? null : rs.getInt("che_do");
+    }
+
+    public Integer getSoTien() {
+        return soTien;
+    }
+
+    public void setSoTien(Integer soTien) {
+        this.soTien = soTien;
     }
 
     public String getTenKhoanPhi() {

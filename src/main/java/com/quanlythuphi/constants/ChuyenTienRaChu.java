@@ -67,7 +67,7 @@ public class ChuyenTienRaChu {
                     kq += "lẻ ";
                     flag10 = 1;
                 } else {
-                    if (!m.startsWith("0")) {
+                    if (!m.startsWith("0") || m.length() == 1) {
                         kq += hm_tien.get(dau) + " ";
                         flag10 = 0;
                     }

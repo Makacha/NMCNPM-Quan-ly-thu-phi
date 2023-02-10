@@ -89,8 +89,8 @@ public class BanGhiController {
     }
 
     public static Long getSumByKhoanPhiId(int khoanPhiId) {
-        ArrayList<BanGhi> banGhiList = new ArrayList<BanGhi>();
-        String query = String.format("select sum(so_tien) from ban_ghi_nop_phi where khoan_phi_id = %d", khoanPhiId);
+        String query = String.format("select sum(so_tien) from ban_ghi_nop_phi " +
+            "where khoan_phi_id = %d and trang_thai = 1", khoanPhiId);
 
         ResultSet rs = DBConnection.executeQuery(query);
         if (rs != null) {
