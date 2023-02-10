@@ -3,7 +3,6 @@ package com.quanlythuphi.controllers;
 import com.quanlythuphi.connection.DBConnection;
 import com.quanlythuphi.constants.Constants;
 import com.quanlythuphi.models.HoKhau;
-import com.quanlythuphi.models.KhoanPhi;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -52,6 +51,37 @@ public class HoKhauController {
                 "where che_do = %d", cheDo);
         }
         ResultSet rs = DBConnection.executeQuery(query);
+        if (rs != null) {
+            while (rs.next()) {
+                hoKhauList.add(new HoKhau(rs));
+            }
+        }
+        return hoKhauList;
+    }
+
+    public static ArrayList<HoKhau> getListHoKhauByFilter(Integer cheDo, Integer tuTuoi, Integer denTuoi) throws SQLException {
+
+        ArrayList<HoKhau> hoKhauList = new ArrayList<>();
+        StringBuilder query = new StringBuilder("select * from ho_khau ");
+        ArrayList<String> filters = new ArrayList<>();
+        if (cheDo != null)
+            filters.add(String.format("che_do <= %d", cheDo));
+        if (tuTuoi != null && denTuoi != null)
+            filters.add(String.format("id in (select ho_khau_id from nhan_khau " +
+                "where TIMESTAMPDIFF(year, ngay_sinh, now()) between %d and %d)", tuTuoi, denTuoi));
+        else if (tuTuoi != null)
+            filters.add(String.format("id in (select ho_khau_id from nhan_khau " +
+                "where TIMESTAMPDIFF(year, ngay_sinh, now()) >= %d)", tuTuoi));
+        else if (denTuoi != null)
+            filters.add(String.format("id in (select ho_khau_id from nhan_khau " +
+                "where TIMESTAMPDIFF(year, ngay_sinh, now()) <= %d)", denTuoi));
+        if (filters.size() > 0)
+            query.append("where id is not null");
+        for (String filter : filters) {
+            query.append(" and ").append(filter);
+        }
+        System.out.println(query);
+        ResultSet rs = DBConnection.executeQuery(query.toString());
         if (rs != null) {
             while (rs.next()) {
                 hoKhauList.add(new HoKhau(rs));
