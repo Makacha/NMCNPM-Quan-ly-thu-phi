@@ -70,7 +70,6 @@ public class KhoanPhiController {
         System.out.println(query);
         return DBConnection.excuteUpdate(query) == 1;
     }
-
     public static boolean updateKhoanPhi(KhoanPhi khoanPhi) {
         String query = String.format("update khoan_phi " +
                 "set ten_khoan_phi = '%s', the_loai = %b, tu_tuoi = %d, den_tuoi = %d, che_do = %d " +

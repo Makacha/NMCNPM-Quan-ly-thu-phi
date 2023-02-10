@@ -167,7 +167,7 @@ public class NhanKhauView extends BaseView implements Initializable {
     public void createNhanKhau(ActionEvent actionEvent) {
         if (tenNhanKhau.getText().equals("") || soDinhDanh.getText().equals("") || ngaySinh.getValue() == null ||
                 soDienThoai.getText().equals("") || loaiCuTru.getValue() == null || tinhTrang.getValue() == null ||
-                gioiTinh.getValue() == null || maHoKhau.getText().equals("")) {
+                gioiTinh.getValue() == null) {
             createAlert.setVisible(true);
             return;
         }
