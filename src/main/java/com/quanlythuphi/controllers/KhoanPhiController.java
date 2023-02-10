@@ -112,7 +112,10 @@ public class KhoanPhiController {
     }
 
     public static boolean deleteKhoanPhi(KhoanPhi khoanPhi) {
-        String query = String.format("delete from khoan_phi where id = %d", khoanPhi.getId());
+        String query = String.format("delete from ban_ghi_nop_phi where khoan_phi_id = %d", khoanPhi.getId());
+        System.out.println(query);
+        DBConnection.excuteUpdate(query);
+        query = String.format("delete from khoan_phi where id = %d", khoanPhi.getId());
         System.out.println(query);
         return DBConnection.excuteUpdate(query) == 1;
     }
