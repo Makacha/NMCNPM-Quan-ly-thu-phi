@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 
 public class HoKhauView extends BaseView implements Initializable {
 
+    public Text maHoKhauExistAlert;
     private HoKhau currentHoKhau;
     @FXML
     private ChoiceBox<String> cheDo;
@@ -104,6 +105,7 @@ public class HoKhauView extends BaseView implements Initializable {
         unExistChuHoAlert.setVisible(false);
         updateSuccesAlert.setVisible(false);
         createAlert.setVisible(false);
+        maHoKhauExistAlert.setVisible(false);
         //initialize TableColumns
         sttCol.setCellValueFactory(
                 hoKhauIntegerCellDataFeatures -> new SimpleObjectProperty<>(
@@ -148,6 +150,7 @@ public class HoKhauView extends BaseView implements Initializable {
 
     @FXML
     void createHoKhau(ActionEvent event) throws SQLException {
+        maHoKhauExistAlert.setVisible(false);
         if (maHoKhau.getText() == null || cheDo.getValue() == null || Constants.mapDateToString(Date.valueOf(ngayLap.getValue())) == null || diaChi.getText() == null) {
             createAlert.setVisible(true);
             return;
@@ -160,6 +163,13 @@ public class HoKhauView extends BaseView implements Initializable {
                 unExistChuHoAlert.setVisible(true);
                 return;
             }
+        }
+        if (HoKhauController.getHoKhauByMaHoKhau(maHoKhau.getText()) != null) {
+            maHoKhauExistAlert.setVisible(true);
+            return;
+        }
+        else {
+            maHoKhauExistAlert.setVisible(false);
         }
         NhanKhau nhanKhau = NhanKhauController.getNhanKhauBySoDinhDanh(chuHo.getText());
         HoKhau hoKhau = HoKhauController.newHoKhau(maHoKhau.getText(), Date.valueOf(ngayLap.getValue()),
@@ -200,6 +210,7 @@ public class HoKhauView extends BaseView implements Initializable {
 
     @FXML
     void openCreateHoKhau(ActionEvent event) {
+        maHoKhauExistAlert.setVisible(false);
         unExistChuHoAlert.setVisible(false);
         createAlert.setVisible(false);
         listHoKhauPage.setVisible(false);

@@ -15,7 +15,7 @@
     <fx:include source="base-view.fxml" />
    <TabPane layoutX="199.0" layoutY="40.0" prefHeight="660.0" prefWidth="1107.0" tabClosingPolicy="UNAVAILABLE">
      <tabs>
-       <Tab style="-fx-pref-width: 80; -fx-font-size: 15;" text="Tổng tiền">
+       <Tab fx:id="sumPane" style="-fx-pref-width: 80; -fx-font-size: 15;" text="Tổng tiền">
             <content>
                <AnchorPane prefHeight="200.0" prefWidth="200.0">
                   <children>
@@ -42,11 +42,16 @@
                      </Text>
                      <Label fx:id="tongTienBangChu" layoutX="275.0" layoutY="216.0" prefHeight="24.0" prefWidth="822.0" />
                      <ComboBox fx:id="thongKeSumKhoanPhi" editable="true" layoutX="238.0" layoutY="42.0" prefHeight="25.0" prefWidth="341.0" />
+                     <Text fx:id="sumAlert" fill="RED" layoutX="287.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Không tồn tại khoản phí này!">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Text>
                   </children>
                </AnchorPane>
             </content>
        </Tab>
-       <Tab style="-fx-pref-width: 200; -fx-font-size: 15;" text="Các hộ chưa nộp khoản phí">
+       <Tab fx:id="chuaNopPane" style="-fx-pref-width: 200; -fx-font-size: 15;" text="Các hộ chưa nộp khoản phí">
             <content>
                <AnchorPane prefHeight="200.0" prefWidth="200.0">
                   <children>
@@ -71,11 +76,16 @@
                            <TableColumn fx:id="diaChiChuaNop" prefWidth="471.0" text="Địa chỉ" />
                        </columns>
                      </TableView>
+                     <Text fx:id="chuaNopAlert" fill="RED" layoutX="309.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Không tồn tại khoản phí này!">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Text>
                   </children>
                </AnchorPane>
             </content>
        </Tab>
-         <Tab style="-fx-font-size: 15;" text="Các hộ đã nộp khoản phí">
+         <Tab fx:id="daNopPane" style="-fx-font-size: 15;" text="Các hộ đã nộp khoản phí">
             <content>
                <AnchorPane prefHeight="200.0" prefWidth="200.0">
                   <children>
@@ -100,6 +110,11 @@
                            <TableColumn fx:id="diaChiDaNop" prefWidth="471.0" text="Địa chỉ" />
                         </columns>
                      </TableView>
+                     <Text fx:id="daNopAlert" fill="RED" layoutX="301.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Không tồn tại khoản phí này!">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Text>
                   </children>
                </AnchorPane>
             </content>

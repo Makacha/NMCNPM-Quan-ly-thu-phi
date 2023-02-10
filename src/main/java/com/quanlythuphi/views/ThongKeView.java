@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -41,6 +42,9 @@ public class ThongKeView extends BaseView implements Initializable {
     public TableColumn<ThongTinThongKe, String> sdtDaNop;
     public TableColumn<ThongTinThongKe, String> soTienDaNop;
     public TableColumn<ThongTinThongKe, String> diaChiDaNop;
+    public Tab sumPane;
+    public Tab chuaNopPane;
+    public Tab daNopPane;
     private String tenKhoanPhi;
     @FXML
     private ComboBox<String> thongKeListChuaNopKhoanPhi;
@@ -56,6 +60,13 @@ public class ThongKeView extends BaseView implements Initializable {
 
     @FXML
     private Label tongTienBangSo;
+
+    @FXML
+    private Text sumAlert;
+    @FXML
+    private Text chuaNopAlert;
+    @FXML
+    private Text daNopAlert;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -99,10 +110,25 @@ public class ThongKeView extends BaseView implements Initializable {
         diaChiDaNop.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
         diaChiChuaNop.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
 
+        sumAlert.setVisible(false);
+        daNopAlert.setVisible(false);
+        chuaNopAlert.setVisible(false);
     }
 
     @FXML
     void timKiemCacHoChuaNop(ActionEvent event) {
+        chuaNopAlert.setVisible(false);
+        if (tenKhoanPhi == "" || tenKhoanPhi == null) {
+            return;
+        }
+        if (KhoanPhiController.getKhoanPhiByTen(tenKhoanPhi) == null) {
+            chuaNopAlert.setVisible(true);
+            listHoKhauChuaNop.getItems().clear();
+            return;
+        }
+        else {
+            chuaNopAlert.setVisible(false);
+        }
         ArrayList<ThongTinThongKe> list = new ArrayList<>();
         try {
             ArrayList<BanGhi> banGhis = BanGhiController.getListBanGhiByFilter(tenKhoanPhi, Constants.CHUA_NOP, null);
@@ -122,6 +148,18 @@ public class ThongKeView extends BaseView implements Initializable {
 
     @FXML
     void timKiemCacHoDaNop(ActionEvent event) {
+        daNopAlert.setVisible(false);
+        if (tenKhoanPhi == "" || tenKhoanPhi == null) {
+            return;
+        }
+        if (KhoanPhiController.getKhoanPhiByTen(tenKhoanPhi) == null) {
+            daNopAlert.setVisible(true);
+            listHoKhauDaNop.getItems().clear();
+            return;
+        }
+        else {
+            daNopAlert.setVisible(false);
+        }
         ArrayList<ThongTinThongKe> list = new ArrayList<>();
         try {
             ArrayList<BanGhi> banGhis = BanGhiController.getListBanGhiByFilter(tenKhoanPhi, Constants.DA_NOP, null);
@@ -141,8 +179,18 @@ public class ThongKeView extends BaseView implements Initializable {
 
     @FXML
     void tinhTongKhoanPhi(ActionEvent event) throws SQLException {
-        if (tenKhoanPhi == null)
+        sumAlert.setVisible(false);
+        if (tenKhoanPhi == null || tenKhoanPhi == "")
             return;
+        if (KhoanPhiController.getKhoanPhiByTen(tenKhoanPhi) == null) {
+            sumAlert.setVisible(true);
+            tongTienBangChu.setText("");
+            tongTienBangSo.setText("");
+            return;
+        }
+        else {
+            sumAlert.setVisible(false);
+        }
         KhoanPhi khoanPhi = KhoanPhiController.getKhoanPhiByTen(tenKhoanPhi);
         Long soTien = BanGhiController.getSumByKhoanPhiId(khoanPhi.getId());
         tongTienBangSo.setText(Constants.doiSoThanhTien(soTien));
@@ -153,7 +201,6 @@ public class ThongKeView extends BaseView implements Initializable {
         if (thongKeSumKhoanPhi.getEditor().getText().equals(""))
             return;
         ObservableList<String> tenKhoanPhiList = null;
-
         try {
             tenKhoanPhiList = FXCollections.observableArrayList(
                     KhoanPhiController.getListTenKhoanPhiByTen(thongKeSumKhoanPhi.getEditor().getText()));
@@ -190,9 +237,5 @@ public class ThongKeView extends BaseView implements Initializable {
             throw new RuntimeException(e);
         }
         thongKeListChuaNopKhoanPhi.setItems(tenKhoanPhiList);
-    }
-
-    public void choiceKhoanPhi(MouseEvent mouseEvent) {
-
     }
 }

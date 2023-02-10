@@ -119,17 +119,22 @@
             </font>
          </Button>
          <DatePicker fx:id="ngayNop" layoutX="276.0" layoutY="204.0" />
-         <Text fx:id="tenKhoanPhiAlert" fill="RED" layoutX="241.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Không tồn tại khoản phí này !" wrappingWidth="244.01171875">
+         <Text fx:id="tenKhoanPhiAlert" fill="RED" layoutX="241.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Không tồn tại khoản phí này !" visible="false" wrappingWidth="244.01171875">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>
          </Text>
-         <Text fx:id="maHoKhauAlert" fill="#ee0000" layoutX="241.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Không tồn tại mã hộ khẩu này !" wrappingWidth="227.13671875">
+         <Text fx:id="maHoKhauAlert" fill="#ee0000" layoutX="249.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Không tồn tại mã hộ khẩu này !" wrappingWidth="227.13671875">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>
          </Text>
          <Text fx:id="createAlert" fill="#ee0000" layoutX="198.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Các trường thông tin * không được bỏ trống" wrappingWidth="301.13671875">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Text>
+         <Text fx:id="tenKhoanPhiExistAlert" fill="#ee0000" layoutX="265.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Khoản phí này đã tồn tại!" wrappingWidth="179.0">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>
@@ -217,4 +222,9 @@
          </Text>
       </children>
    </AnchorPane>
+   <Text fx:id="tenKhoanPhiAlert1" fill="RED" layoutX="251.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Không tồn tại khoản phí này !" visible="false" wrappingWidth="244.01171875">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font>
+   </Text>
 </AnchorPane>
