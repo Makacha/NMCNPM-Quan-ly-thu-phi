@@ -20,7 +20,6 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
 public class BanGhiView implements Initializable  {
 
     public Text tenKhoanPhiExistAlert;
@@ -141,6 +140,7 @@ public class BanGhiView implements Initializable  {
         failUpdate.setVisible(false);
         tenKhoanPhiUpdateAlert.setVisible(false);
         maHoKhauUpdateAlert.setVisible(false);
+        tenKhoanPhiExistAlert.setVisible(false);
         danhSachBanGhi.setRowFactory(nhanKhauTableView -> {
             TableRow<BanGhi> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
