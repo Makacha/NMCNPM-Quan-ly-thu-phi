@@ -61,7 +61,7 @@
                 </font>
             </Button>
             <ChoiceBox fx:id="cheDo" layoutX="97.0" layoutY="234.0" prefWidth="150.0" />
-         <Text fx:id="createAlert" fill="RED" layoutX="144.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trường thông tin bắt buộc (*) không được bỏ trống!">
+         <Text fx:id="createAlert" fill="RED" layoutX="135.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trường thông tin bắt buộc (*) không được bỏ trống!">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>
@@ -77,6 +77,11 @@
             </font>
          </Label>
          <TextField fx:id="soTien" layoutX="184.0" layoutY="283.0" />
+         <Text fx:id="moneyAlert" fill="RED" layoutX="153.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Khoản phí bắt buộc phải có số tiền!">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Text>
         </AnchorPane>
         <AnchorPane fx:id="listKhoanPhiPage" prefHeight="640.0" prefWidth="1100.0" visible="false">
             <ChoiceBox fx:id="loaiKhoanPhiSearch" layoutX="343.0" layoutY="90.0" prefHeight="25.0" prefWidth="118.0" />

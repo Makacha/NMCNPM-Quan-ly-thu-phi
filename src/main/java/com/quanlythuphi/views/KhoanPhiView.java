@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 public class KhoanPhiView extends BaseView implements Initializable {
 
     public Text khoanPhiExistAlert;
+    public Text moneyAlert;
     private KhoanPhi current;
 
     public ChoiceBox<String> loaiKhoanPhi;
@@ -61,6 +62,7 @@ public class KhoanPhiView extends BaseView implements Initializable {
         updateSuccessAlert.setVisible(false);
         khoanPhiExistAlert.setVisible(false);
         createAlert.setVisible(false);
+        moneyAlert.setVisible(false);
         sttCol.setCellValueFactory(
             khoanPhiIntegerCellDataFeatures -> new SimpleObjectProperty<>(
                 khoanPhiIntegerCellDataFeatures.getTableView().getItems().indexOf(
@@ -102,9 +104,19 @@ public class KhoanPhiView extends BaseView implements Initializable {
             khoanPhiExistAlert.setVisible(true);
             return;
         }
-        else {
+        else
             khoanPhiExistAlert.setVisible(false);
+        System.out.println(soTien.getText());
+        if (loaiKhoanPhi.getValue() == Constants.PHI_BAT_BUOC) {
+            if (soTien.getText().equals("")) {
+                moneyAlert.setVisible(true);
+                return;
+            }
+            else
+                moneyAlert.setVisible(false);
         }
+        else
+            moneyAlert.setVisible(false);
         KhoanPhi khoanPhi = KhoanPhiController.newKhoanPhi(tenKhoanPhi.getText(), loaiKhoanPhi.getValue(),
             tuTuoi.getText(), denTuoi.getText(), cheDo.getValue(), soTien.getText());
         if (KhoanPhiController.createKhoanPhi(khoanPhi)) {
@@ -142,6 +154,7 @@ public class KhoanPhiView extends BaseView implements Initializable {
         listKhoanPhiPage.setVisible(false);
         createKhoanPhiPage.setVisible(false);
         detailKhoanPhiPage.setVisible(true);
+        moneyAlert.setVisible(false);
         current = khoanPhi;
         tenKhoanPhiDetail.setText(current.getTenKhoanPhi());
         loaiKhoanPhiDetail.setValue(current.getTheLoai() ? Constants.PHI_BAT_BUOC : Constants.PHI_TU_NGUYEN);
