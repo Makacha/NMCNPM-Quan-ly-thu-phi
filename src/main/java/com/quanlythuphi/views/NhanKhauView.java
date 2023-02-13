@@ -170,12 +170,13 @@ public class NhanKhauView extends BaseView implements Initializable {
         }
         else
            createAlert.setVisible(false);
-        if (HoKhauController.getHoKhauByMaHoKhau(maHoKhau.getText()) == null) {
-            unExistMaHoKhauAlert.setVisible(true);
-            return;
+        if (!maHoKhau.getText().equals("")) {
+            if (HoKhauController.getHoKhauByMaHoKhau(maHoKhau.getText()) == null) {
+                unExistMaHoKhauAlert.setVisible(true);
+                return;
+            } else
+                unExistMaHoKhauAlert.setVisible(false);
         }
-        else
-            unExistMaHoKhauAlert.setVisible(false);
         NhanKhau nhanKhau = NhanKhauController.newNhanKhau(tenNhanKhau.getText(),
             ngaySinh.getValue() != null ? Date.valueOf(ngaySinh.getValue()) : null, danToc.getText(),
             soDinhDanh.getText(), tonGiao.getText(), queQuan.getText(), gioiTinh.getValue(), diaChi.getText(),
