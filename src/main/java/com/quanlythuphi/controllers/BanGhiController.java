@@ -24,7 +24,7 @@ public class BanGhiController {
         return null;
     }
 
-    public static ArrayList<BanGhi> getListBanGhiByFilter(String tenKhoanPhi, String trangThai, String maHoKhau) throws SQLException {
+    public static ArrayList<BanGhi> getListBanGhiByFilter(String tenKhoanPhi, String maHoKhau, String trangThai) throws SQLException {
         ArrayList<BanGhi> banGhiList = new ArrayList<BanGhi>();
         String query = "select * from ban_ghi_nop_phi where id is not null";
         if (tenKhoanPhi != null && !tenKhoanPhi.equals(""))
@@ -33,7 +33,6 @@ public class BanGhiController {
             HoKhau hoKhau = HoKhauController.getHoKhauByMaHoKhau(maHoKhau);
             query += String.format(" and ho_khau_id = %d", hoKhau == null ? null : hoKhau.getId());
         }
-
         ResultSet rs = DBConnection.executeQuery(query);
         if (rs != null) {
             while (rs.next()) {

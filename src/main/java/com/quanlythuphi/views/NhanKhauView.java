@@ -157,7 +157,7 @@ public class NhanKhauView extends BaseView implements Initializable {
     public void searchNhanKhau(ActionEvent actionEvent) throws SQLException {
         ObservableList<NhanKhau> nhanKhauList = FXCollections.observableArrayList(
             NhanKhauController.getListNhanKhauByFilter(tenNhanKhauSearch.getText(), soDinhDanhSearch.getText(),
-                soDinhDanhSearch.getText(), diaChiSearch.getText()));
+                soDienThoaiSearch.getText(), diaChiSearch.getText()));
         danhSachNhanKhau.setItems(nhanKhauList);
     }
 
